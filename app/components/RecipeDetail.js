@@ -1,12 +1,20 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import IngredientList from './IngredientList';
 import StepList from './StepList';
+import ConfirmModal from './ConfirmModal';
 
 export default function RecipeDetail({ recipe }) {
+  const router = useRouter();
+
   // State for selected serving size - defaults to recipe's base serving size
   const [selectedServings, setSelectedServings] = useState(recipe.baseServings);
+
+  // State for delete confirmation modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const categories = recipe.categories.split(',').map(c => c.trim());
   const formattedDate = new Date(recipe.createdAt).toLocaleDateString('en-US', {
@@ -17,6 +25,29 @@ export default function RecipeDetail({ recipe }) {
 
   // Serving size options (2-6 people)
   const servingOptions = [2, 3, 4, 5, 6];
+
+  // Handle recipe deletion
+  const handleDelete = async () => {
+    setIsDeleting(true);
+
+    try {
+      const response = await fetch(`/api/recipes/${recipe.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete recipe');
+      }
+
+      // Redirect to home page after successful deletion
+      router.push('/');
+    } catch (error) {
+      console.error('Error deleting recipe:', error);
+      alert('Failed to delete recipe. Please try again.');
+      setIsDeleting(false);
+      setShowDeleteModal(false);
+    }
+  };
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -122,11 +153,23 @@ export default function RecipeDetail({ recipe }) {
           Edit Recipe
         </a>
         <button
+          onClick={() => setShowDeleteModal(true)}
           className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
         >
           Delete Recipe
         </button>
       </div>
+
+      {/* Delete confirmation modal */}
+      <ConfirmModal
+        isOpen={showDeleteModal}
+        onConfirm={handleDelete}
+        onCancel={() => setShowDeleteModal(false)}
+        title="Delete Recipe?"
+        message="This will permanently delete this recipe. This action cannot be undone."
+        confirmText={isDeleting ? 'Deleting...' : 'Delete'}
+        cancelText="Cancel"
+      />
     </main>
   );
 }

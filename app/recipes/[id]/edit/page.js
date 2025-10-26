@@ -1,11 +1,11 @@
 import { PrismaClient } from '@/app/generated/prisma';
 import { notFound } from 'next/navigation';
-import RecipeDetail from '@/app/components/RecipeDetail';
 import Link from 'next/link';
+import RecipeForm from '@/app/components/RecipeForm';
 
 const prisma = new PrismaClient();
 
-export default async function RecipePage({ params }) {
+export default async function EditRecipePage({ params }) {
   // In Next.js 16+, params is a Promise and must be awaited
   const { id } = await params;
 
@@ -17,39 +17,42 @@ export default async function RecipePage({ params }) {
     include: {
       ingredients: {
         orderBy: {
-          order: 'asc'  // Sort ingredients by their order field
+          order: 'asc'
         }
       },
       steps: {
         orderBy: {
-          order: 'asc'  // Sort steps by their order field
+          order: 'asc'
         }
       }
     }
   });
 
-  // Show 404 page if recipe doesn't exist
+  // Show 404 if recipe doesn't exist
   if (!recipe) {
     notFound();
   }
 
   return (
     <div className="min-h-screen bg-neutral-50">
-      {/* Header with back button */}
+      {/* Header */}
       <header className="bg-white border-b border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link
-            href="/"
+            href={`/recipes/${recipe.id}`}
             className="inline-flex items-center text-neutral-600 hover:text-neutral-900 transition-colors"
           >
             <span className="mr-2">←</span>
-            Back to recipes
+            Back to recipe
           </Link>
         </div>
       </header>
 
-      {/* Pass recipe data to client component for interactive features */}
-      <RecipeDetail recipe={recipe} />
+      {/* Form with initial data */}
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 className="text-3xl font-bold text-neutral-900 mb-8">Edit Recipe</h1>
+        <RecipeForm mode="edit" initialData={recipe} />
+      </main>
     </div>
   );
 }
