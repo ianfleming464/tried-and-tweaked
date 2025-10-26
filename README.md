@@ -295,3 +295,21 @@ This project is open source and available under the MIT License.
 ---
 
 **Need Help?** Check the [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) for a deep dive into the codebase architecture and implementation details.
+
+Useful command ref : 
+
+# Development
+npm run dev              # Start dev server
+npm run build            # Build for production
+npm start                # Run production build
+
+# Database
+npx prisma studio        # Visual DB editor
+npx prisma migrate dev   # Create migration after schema changes
+npx prisma migrate reset # Reset DB and re-seed
+npx prisma generate      # Regenerate Prisma Client
+
+# Git
+git status               # See what's changed
+git diff                 # See specific changes
+git log --oneline        # See commit history
