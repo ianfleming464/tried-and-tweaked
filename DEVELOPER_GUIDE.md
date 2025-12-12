@@ -569,7 +569,7 @@ const formattedDate = new Date(recipe.createdAt).toLocaleDateString('en-US', {
 - DRY principle
 - Same validation logic
 - Same UI
-- Mode prop switches behavior
+- Mode prop switches behaviour
 
 **State structure**:
 ```javascript
@@ -768,7 +768,7 @@ if (!ingredient.quantity || ingredient.quantity === 0) {
 - React state is source of truth
 - Can programmatically set value
 - Can clear from outside (X button)
-- Predictable behavior
+- Predictable behaviour
 
 **Clear button**:
 ```javascript
@@ -1088,7 +1088,7 @@ CREATE TABLE Ingredient (
 );
 ```
 
-**Cascade delete behavior**:
+**Cascade delete behaviour**:
 ```sql
 DELETE FROM Recipe WHERE id = 1;
 -- Automatically deletes:
