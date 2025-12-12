@@ -9,23 +9,38 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
   const router = useRouter();
 
   // Initialize form state - either empty (create) or from initialData (edit)
-  const [title, setTitle] = useState(initialData?.title || '');
-  const [description, setDescription] = useState(initialData?.description || '');
-  const [imageUrl, setImageUrl] = useState(initialData?.imageUrl || '');
-  const [baseServings, setBaseServings] = useState(initialData?.baseServings || 4);
-  const [source, setSource] = useState(initialData?.source || '');
+  // Convert null values to empty strings for controlled inputs
+  const [title, setTitle] = useState(initialData?.title ?? '');
+  const [description, setDescription] = useState(initialData?.description ?? '');
+  const [imageUrl, setImageUrl] = useState(initialData?.imageUrl ?? '');
+  const [baseServings, setBaseServings] = useState(initialData?.baseServings ?? 4);
+  const [source, setSource] = useState(initialData?.source ?? '');
   const [selectedCategories, setSelectedCategories] = useState(
     initialData?.categories ? initialData.categories.split(',').map(c => c.trim()) : []
   );
 
   // Dynamic ingredients array - each has name, quantity, unit, note, and order
+  // Convert null values to empty strings to avoid React controlled input warnings
   const [ingredients, setIngredients] = useState(
-    initialData?.ingredients || [{ name: '', quantity: '', unit: '', note: '', order: 1 }]
+    initialData?.ingredients
+      ? initialData.ingredients.map(ing => ({
+          ...ing,
+          name: ing.name ?? '',
+          unit: ing.unit ?? '',
+          note: ing.note ?? '',
+          quantity: ing.quantity ?? ''
+        }))
+      : [{ name: '', quantity: '', unit: '', note: '', order: 1 }]
   );
 
   // Dynamic steps array - each has text and order
   const [steps, setSteps] = useState(
-    initialData?.steps || [{ text: '', order: 1 }]
+    initialData?.steps
+      ? initialData.steps.map(step => ({
+          ...step,
+          text: step.text ?? ''
+        }))
+      : [{ text: '', order: 1 }]
   );
 
   const [error, setError] = useState('');

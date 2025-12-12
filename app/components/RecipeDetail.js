@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import IngredientList from './IngredientList';
 import StepList from './StepList';
@@ -16,12 +16,19 @@ export default function RecipeDetail({ recipe }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // State for formatted date
+  const [formattedDate, setFormattedDate] = useState('');
+
   const categories = recipe.categories.split(',').map(c => c.trim());
-  const formattedDate = new Date(recipe.createdAt).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric'
-  });
+
+  useEffect(() => {
+    // Format date only on client to avoid hydration mismatch
+    setFormattedDate(new Date(recipe.createdAt).toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    }));
+  }, [recipe.createdAt]);
 
   // Serving size options (2-6 people)
   const servingOptions = [2, 3, 4, 5, 6];
@@ -90,7 +97,7 @@ export default function RecipeDetail({ recipe }) {
               <span className="font-medium">Source:</span> {recipe.source}
             </div>
           )}
-          <div>
+          <div suppressHydrationWarning>
             <span className="font-medium">Added:</span> {formattedDate}
           </div>
         </div>

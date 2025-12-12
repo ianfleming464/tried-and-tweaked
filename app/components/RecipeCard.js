@@ -1,12 +1,20 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function RecipeCard({ recipe }) {
   const categories = recipe.categories.split(',').map(c => c.trim());
-  const formattedDate = new Date(recipe.createdAt).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric'
-  });
+  const [formattedDate, setFormattedDate] = useState('');
+
+  useEffect(() => {
+    // Format date only on client to avoid hydration mismatch
+    setFormattedDate(new Date(recipe.createdAt).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    }));
+  }, [recipe.createdAt]);
 
   return (
     <Link href={`/recipes/${recipe.id}`} className="block group">
@@ -44,7 +52,7 @@ export default function RecipeCard({ recipe }) {
 
           <div className="flex items-center justify-between text-sm text-neutral-500">
             <span>{recipe.baseServings} servings</span>
-            <span>{formattedDate}</span>
+            <span suppressHydrationWarning>{formattedDate}</span>
           </div>
         </div>
       </article>

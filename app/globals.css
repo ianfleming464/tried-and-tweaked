@@ -24,3 +24,46 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Force dark text color for all form inputs and selects */
+input,
+textarea,
+select {
+  color: rgb(23, 23, 23) !important;
+}
+
+/* Force dark text color for select options */
+option {
+  color: rgb(23, 23, 23) !important;
+}
+
+/* Make placeholder text darker and more visible */
+input::placeholder,
+textarea::placeholder {
+  color: rgb(82, 82, 82) !important;
+  opacity: 1 !important;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: rgb(82, 82, 82) !important;
+  opacity: 1 !important;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: rgb(82, 82, 82) !important;
+  opacity: 1 !important;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: rgb(82, 82, 82) !important;
+  opacity: 1 !important;
+}
+
+input::-ms-input-placeholder,
+textarea::-ms-input-placeholder {
+  color: rgb(82, 82, 82) !important;
+  opacity: 1 !important;
+}
