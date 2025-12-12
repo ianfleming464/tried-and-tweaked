@@ -34,16 +34,27 @@ export default async function RecipePage({ params }) {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50">
-      {/* Header with back button */}
-      <header className="bg-white border-b border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div className="min-h-screen" style={{ background: 'var(--dark-bg)' }}>
+      {/* Animated Aurora Background */}
+      <div className="aurora-background">
+        <div className="aurora-blob aurora-blob-1"></div>
+        <div className="aurora-blob aurora-blob-2"></div>
+        <div className="aurora-blob aurora-blob-3"></div>
+      </div>
+
+      {/* Glass Header with back button */}
+      <header className="glass-header sticky top-0 z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <Link
             href="/"
-            className="inline-flex items-center text-neutral-600 hover:text-neutral-900 transition-colors"
+            className="inline-flex items-center transition-all duration-300 hover:scale-105"
+            style={{
+              color: 'var(--glass-white)',
+              textShadow: '0 0 20px rgba(0, 212, 255, 0.5)'
+            }}
           >
-            <span className="mr-2">←</span>
-            Back to recipes
+            <span className="mr-2 text-xl">←</span>
+            <span className="font-medium">Back to recipes</span>
           </Link>
         </div>
       </header>

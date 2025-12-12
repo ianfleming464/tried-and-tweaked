@@ -58,40 +58,65 @@ export default function RecipeDetail({ recipe }) {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Recipe header */}
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+      {/* Recipe header with glass effect */}
+      <div className="glass-card p-6 mb-6" style={{ borderRadius: '24px' }}>
         {recipe.imageUrl && (
-          <div className="w-full h-64 md:h-96 rounded-lg overflow-hidden mb-6">
+          <div className="w-full h-64 md:h-96 overflow-hidden mb-6 relative" style={{ borderRadius: '20px' }}>
             <img
               src={recipe.imageUrl}
               alt={recipe.title}
               className="w-full h-full object-cover"
             />
+            <div
+              className="absolute inset-0"
+              style={{
+                background: 'linear-gradient(to top, rgba(10, 1, 24, 0.3), transparent)',
+              }}
+            />
           </div>
         )}
 
-        <h1 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+        <h1
+          className="text-3xl md:text-4xl font-bold mb-4"
+          style={{
+            fontFamily: 'var(--font-outfit)',
+            color: 'var(--glass-white)',
+            textShadow: '0 0 30px rgba(107, 45, 255, 0.6)',
+          }}
+        >
           {recipe.title}
         </h1>
 
         {recipe.description && (
-          <p className="text-lg text-neutral-600 mb-4 leading-relaxed">
+          <p className="text-lg mb-4 leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
             {recipe.description}
           </p>
         )}
 
         <div className="flex flex-wrap gap-2 mb-4">
-          {categories.map(category => (
+          {categories.map((category, index) => (
             <span
               key={category}
-              className="inline-block px-3 py-1 text-sm font-medium bg-orange-100 text-orange-700 rounded-full"
+              className="inline-block px-3 py-1.5 text-sm font-medium"
+              style={{
+                background: index % 3 === 0
+                  ? 'linear-gradient(135deg, rgba(107, 45, 255, 0.3), rgba(139, 92, 246, 0.3))'
+                  : index % 3 === 1
+                  ? 'linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(0, 255, 157, 0.3))'
+                  : 'linear-gradient(135deg, rgba(0, 255, 157, 0.3), rgba(107, 45, 255, 0.3))',
+                color: 'var(--glass-white)',
+                borderRadius: '12px',
+                border: '1px solid var(--glass-border)',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
+              }}
             >
               {category}
             </span>
           ))}
         </div>
 
-        <div className="flex flex-wrap gap-4 text-sm text-neutral-500">
+        <div className="flex flex-wrap gap-4 text-sm" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
           {recipe.source && (
             <div>
               <span className="font-medium">Source:</span> {recipe.source}
@@ -103,9 +128,9 @@ export default function RecipeDetail({ recipe }) {
         </div>
       </div>
 
-      {/* Serving size selector - prominent placement */}
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-        <label className="block text-sm font-medium text-neutral-700 mb-3">
+      {/* Serving size selector with glass effect */}
+      <div className="glass-card p-6 mb-6" style={{ borderRadius: '20px' }}>
+        <label className="block text-sm font-medium mb-3" style={{ color: 'var(--glass-white)' }}>
           Servings
         </label>
         <div className="flex gap-2">
@@ -113,13 +138,19 @@ export default function RecipeDetail({ recipe }) {
             <button
               key={size}
               onClick={() => setSelectedServings(size)}
-              className={`
-                px-4 py-2 rounded-lg font-medium transition-colors min-w-[60px]
-                ${selectedServings === size
-                  ? 'bg-orange-500 text-white'
-                  : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
-                }
-              `}
+              className="px-4 py-2 font-medium transition-all duration-300 min-w-[60px] hover:scale-105"
+              style={selectedServings === size ? {
+                background: 'linear-gradient(135deg, var(--deep-purple), var(--royal-purple))',
+                color: 'var(--glass-white)',
+                borderRadius: '14px',
+                boxShadow: '0 0 20px rgba(107, 45, 255, 0.6)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+              } : {
+                background: 'var(--glass-bg)',
+                color: 'var(--glass-white)',
+                borderRadius: '14px',
+                border: '1px solid var(--glass-border)',
+              }}
               aria-pressed={selectedServings === size}
               aria-label={`${size} servings`}
             >
@@ -128,7 +159,7 @@ export default function RecipeDetail({ recipe }) {
           ))}
         </div>
         {selectedServings !== recipe.baseServings && (
-          <p className="mt-2 text-sm text-neutral-500">
+          <p className="mt-2 text-sm" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
             Scaled from {recipe.baseServings} servings
           </p>
         )}
@@ -151,17 +182,29 @@ export default function RecipeDetail({ recipe }) {
         </div>
       </div>
 
-      {/* Action buttons */}
+      {/* Action buttons with glass effect */}
       <div className="mt-8 flex gap-4">
         <a
           href={`/recipes/${recipe.id}/edit`}
-          className="px-6 py-3 bg-neutral-700 text-white rounded-lg hover:bg-neutral-800 transition-colors font-medium"
+          className="px-6 py-3 font-medium transition-all duration-300 hover:scale-105 glass-card"
+          style={{
+            color: 'var(--glass-white)',
+            borderRadius: '14px',
+            display: 'inline-block',
+          }}
         >
           Edit Recipe
         </a>
         <button
           onClick={() => setShowDeleteModal(true)}
-          className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
+          className="px-6 py-3 font-medium transition-all duration-300 hover:scale-105"
+          style={{
+            background: 'linear-gradient(135deg, rgba(255, 0, 80, 0.7), rgba(255, 50, 100, 0.7))',
+            color: 'var(--glass-white)',
+            borderRadius: '14px',
+            boxShadow: '0 0 20px rgba(255, 0, 80, 0.4)',
+            border: '1px solid rgba(255, 100, 150, 0.3)',
+          }}
         >
           Delete Recipe
         </button>

@@ -201,18 +201,28 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
     <form onSubmit={handleSubmit} className="space-y-8">
       {/* Error message */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+        <div className="glass-card px-6 py-4" style={{
+          background: 'rgba(255, 0, 80, 0.15)',
+          border: '1px solid rgba(255, 0, 80, 0.4)',
+          borderRadius: '16px',
+          color: 'rgba(255, 100, 150, 1)',
+          boxShadow: '0 0 20px rgba(255, 0, 80, 0.3)'
+        }}>
           {error}
         </div>
       )}
 
       {/* Recipe Details Section */}
-      <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
-        <h2 className="text-xl font-bold text-neutral-900">Recipe Details</h2>
+      <div className="glass-card p-6 space-y-6" style={{ borderRadius: '20px' }}>
+        <h2 className="text-xl font-bold" style={{
+          fontFamily: 'var(--font-outfit)',
+          color: 'var(--glass-white)',
+          textShadow: '0 2px 8px rgba(107, 45, 255, 0.5)'
+        }}>Recipe Details</h2>
 
         {/* Title */}
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-neutral-700 mb-2">
+          <label htmlFor="title" className="block text-sm font-medium mb-2" style={{ color: 'var(--glass-white)' }}>
             Title *
           </label>
           <input
@@ -220,7 +230,16 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-3 glass-card focus:outline-none transition-all duration-300"
+            style={{ borderRadius: '12px', color: 'var(--glass-white)' }}
+            onFocus={(e) => {
+              e.target.style.boxShadow = '0 0 24px rgba(107, 45, 255, 0.5)';
+              e.target.style.borderColor = 'rgba(107, 45, 255, 0.6)';
+            }}
+            onBlur={(e) => {
+              e.target.style.boxShadow = '';
+              e.target.style.borderColor = 'var(--glass-border)';
+            }}
             placeholder="e.g., Grandma's Apple Pie"
             required
           />
@@ -228,7 +247,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
 
         {/* Description */}
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-neutral-700 mb-2">
+          <label htmlFor="description" className="block text-sm font-medium mb-2" style={{ color: 'var(--glass-white)' }}>
             Description
           </label>
           <textarea
@@ -236,14 +255,23 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={4}
-            className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-3 glass-card focus:outline-none transition-all duration-300"
+            style={{ borderRadius: '12px', color: 'var(--glass-white)' }}
+            onFocus={(e) => {
+              e.target.style.boxShadow = '0 0 24px rgba(107, 45, 255, 0.5)';
+              e.target.style.borderColor = 'rgba(107, 45, 255, 0.6)';
+            }}
+            onBlur={(e) => {
+              e.target.style.boxShadow = '';
+              e.target.style.borderColor = 'var(--glass-border)';
+            }}
             placeholder="Story, context, or notes about this recipe..."
           />
         </div>
 
         {/* Image URL */}
         <div>
-          <label htmlFor="imageUrl" className="block text-sm font-medium text-neutral-700 mb-2">
+          <label htmlFor="imageUrl" className="block text-sm font-medium mb-2" style={{ color: 'var(--glass-white)' }}>
             Image URL
           </label>
           <input
@@ -251,14 +279,23 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
             id="imageUrl"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
-            className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-3 glass-card focus:outline-none transition-all duration-300"
+            style={{ borderRadius: '12px', color: 'var(--glass-white)' }}
+            onFocus={(e) => {
+              e.target.style.boxShadow = '0 0 24px rgba(107, 45, 255, 0.5)';
+              e.target.style.borderColor = 'rgba(107, 45, 255, 0.6)';
+            }}
+            onBlur={(e) => {
+              e.target.style.boxShadow = '';
+              e.target.style.borderColor = 'var(--glass-border)';
+            }}
             placeholder="https://example.com/image.jpg"
           />
         </div>
 
         {/* Base Servings */}
         <div>
-          <label htmlFor="baseServings" className="block text-sm font-medium text-neutral-700 mb-2">
+          <label htmlFor="baseServings" className="block text-sm font-medium mb-2" style={{ color: 'var(--glass-white)' }}>
             Base Servings *
           </label>
           <input
@@ -267,14 +304,23 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
             value={baseServings}
             onChange={(e) => setBaseServings(e.target.value)}
             min="1"
-            className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-3 glass-card focus:outline-none transition-all duration-300"
+            style={{ borderRadius: '12px', color: 'var(--glass-white)' }}
+            onFocus={(e) => {
+              e.target.style.boxShadow = '0 0 24px rgba(107, 45, 255, 0.5)';
+              e.target.style.borderColor = 'rgba(107, 45, 255, 0.6)';
+            }}
+            onBlur={(e) => {
+              e.target.style.boxShadow = '';
+              e.target.style.borderColor = 'var(--glass-border)';
+            }}
             required
           />
         </div>
 
         {/* Source */}
         <div>
-          <label htmlFor="source" className="block text-sm font-medium text-neutral-700 mb-2">
+          <label htmlFor="source" className="block text-sm font-medium mb-2" style={{ color: 'var(--glass-white)' }}>
             Source
           </label>
           <input
@@ -282,27 +328,46 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
             id="source"
             value={source}
             onChange={(e) => setSource(e.target.value)}
-            className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full px-4 py-3 glass-card focus:outline-none transition-all duration-300"
+            style={{ borderRadius: '12px', color: 'var(--glass-white)' }}
+            onFocus={(e) => {
+              e.target.style.boxShadow = '0 0 24px rgba(107, 45, 255, 0.5)';
+              e.target.style.borderColor = 'rgba(107, 45, 255, 0.6)';
+            }}
+            onBlur={(e) => {
+              e.target.style.boxShadow = '';
+              e.target.style.borderColor = 'var(--glass-border)';
+            }}
             placeholder="Book, website, or person"
           />
         </div>
 
         {/* Categories */}
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-2">
+          <label className="block text-sm font-medium mb-2" style={{ color: 'var(--glass-white)' }}>
             Categories *
           </label>
           <div className="flex flex-wrap gap-2">
-            {CATEGORIES.map(category => (
+            {CATEGORIES.map((category, index) => (
               <label
                 key={category}
-                className={`
-                  px-4 py-2 rounded-full border cursor-pointer transition-colors
-                  ${selectedCategories.includes(category)
-                    ? 'bg-orange-500 text-white border-orange-500'
-                    : 'bg-white text-neutral-700 border-neutral-300 hover:border-orange-500'
-                  }
-                `}
+                className="px-4 py-2 cursor-pointer transition-all duration-300 hover:scale-105 glass-card"
+                style={selectedCategories.includes(category) ? {
+                  background: index % 3 === 0
+                    ? 'linear-gradient(135deg, var(--deep-purple), var(--royal-purple))'
+                    : index % 3 === 1
+                    ? 'linear-gradient(135deg, var(--cyan-glow), var(--royal-purple))'
+                    : 'linear-gradient(135deg, var(--emerald-glow), var(--cyan-glow))',
+                  color: 'var(--glass-white)',
+                  borderRadius: '14px',
+                  boxShadow: '0 0 20px rgba(107, 45, 255, 0.6)',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                } : {
+                  background: 'var(--glass-bg)',
+                  color: 'var(--glass-white)',
+                  borderRadius: '14px',
+                  border: '1px solid var(--glass-border)',
+                }}
               >
                 <input
                   type="checkbox"
@@ -318,8 +383,12 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
       </div>
 
       {/* Ingredients Section */}
-      <div className="bg-white rounded-lg shadow-sm p-6 space-y-4">
-        <h2 className="text-xl font-bold text-neutral-900">Ingredients</h2>
+      <div className="glass-card p-6 space-y-4" style={{ borderRadius: '20px' }}>
+        <h2 className="text-xl font-bold" style={{
+          fontFamily: 'var(--font-outfit)',
+          color: 'var(--glass-white)',
+          textShadow: '0 2px 8px rgba(0, 212, 255, 0.5)'
+        }}>Ingredients</h2>
 
         {ingredients.map((ingredient, index) => (
           <div key={index} className="flex gap-2 items-start">
@@ -330,7 +399,10 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
                 value={ingredient.name}
                 onChange={(e) => updateIngredient(index, 'name', e.target.value)}
                 placeholder="Ingredient name"
-                className="sm:col-span-4 px-3 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="sm:col-span-4 px-3 py-2 glass-card focus:outline-none transition-all duration-300"
+                style={{ borderRadius: '10px', color: 'var(--glass-white)' }}
+                onFocus={(e) => e.target.style.boxShadow = '0 0 16px rgba(0, 255, 157, 0.4)'}
+                onBlur={(e) => e.target.style.boxShadow = ''}
               />
 
               {/* Quantity */}
@@ -340,7 +412,10 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
                 value={ingredient.quantity}
                 onChange={(e) => updateIngredient(index, 'quantity', e.target.value)}
                 placeholder="Qty"
-                className="sm:col-span-2 px-3 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="sm:col-span-2 px-3 py-2 glass-card focus:outline-none transition-all duration-300"
+                style={{ borderRadius: '10px', color: 'var(--glass-white)' }}
+                onFocus={(e) => e.target.style.boxShadow = '0 0 16px rgba(0, 255, 157, 0.4)'}
+                onBlur={(e) => e.target.style.boxShadow = ''}
               />
 
               {/* Unit */}
@@ -349,7 +424,10 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
                 value={ingredient.unit}
                 onChange={(e) => updateIngredient(index, 'unit', e.target.value)}
                 placeholder="Unit"
-                className="sm:col-span-2 px-3 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="sm:col-span-2 px-3 py-2 glass-card focus:outline-none transition-all duration-300"
+                style={{ borderRadius: '10px', color: 'var(--glass-white)' }}
+                onFocus={(e) => e.target.style.boxShadow = '0 0 16px rgba(0, 255, 157, 0.4)'}
+                onBlur={(e) => e.target.style.boxShadow = ''}
               />
 
               {/* Note */}
@@ -358,7 +436,10 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
                 value={ingredient.note}
                 onChange={(e) => updateIngredient(index, 'note', e.target.value)}
                 placeholder="Note (optional)"
-                className="sm:col-span-4 px-3 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="sm:col-span-4 px-3 py-2 glass-card focus:outline-none transition-all duration-300"
+                style={{ borderRadius: '10px', color: 'var(--glass-white)' }}
+                onFocus={(e) => e.target.style.boxShadow = '0 0 16px rgba(0, 255, 157, 0.4)'}
+                onBlur={(e) => e.target.style.boxShadow = ''}
               />
             </div>
 
@@ -366,7 +447,12 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
             <button
               type="button"
               onClick={() => removeIngredient(index)}
-              className="px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+              className="px-3 py-2 glass-card transition-all duration-300 hover:scale-110"
+              style={{
+                borderRadius: '10px',
+                color: 'rgba(255, 100, 150, 1)',
+                boxShadow: '0 0 12px rgba(255, 0, 80, 0.3)'
+              }}
               aria-label="Remove ingredient"
             >
               ✕
@@ -377,20 +463,44 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
         <button
           type="button"
           onClick={addIngredient}
-          className="w-full px-4 py-2 border-2 border-dashed border-neutral-300 text-neutral-600 rounded-lg hover:border-orange-500 hover:text-orange-500 transition-colors"
+          className="w-full px-4 py-3 glass-card border-2 border-dashed transition-all duration-300 hover:scale-[1.02]"
+          style={{
+            borderRadius: '12px',
+            borderColor: 'var(--glass-border)',
+            color: 'var(--glass-white)'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.borderColor = 'rgba(0, 255, 157, 0.5)';
+            e.target.style.boxShadow = '0 0 20px rgba(0, 255, 157, 0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.borderColor = 'var(--glass-border)';
+            e.target.style.boxShadow = '';
+          }}
         >
           + Add Ingredient
         </button>
       </div>
 
       {/* Steps Section */}
-      <div className="bg-white rounded-lg shadow-sm p-6 space-y-4">
-        <h2 className="text-xl font-bold text-neutral-900">Cooking Steps</h2>
+      <div className="glass-card p-6 space-y-4" style={{ borderRadius: '20px' }}>
+        <h2 className="text-xl font-bold" style={{
+          fontFamily: 'var(--font-outfit)',
+          color: 'var(--glass-white)',
+          textShadow: '0 2px 8px rgba(0, 212, 255, 0.5)'
+        }}>Cooking Steps</h2>
 
         {steps.map((step, index) => (
           <div key={index} className="flex gap-2 items-start">
             {/* Step number */}
-            <div className="flex-shrink-0 w-8 h-8 bg-neutral-200 rounded-full flex items-center justify-center font-bold text-neutral-700 mt-1">
+            <div
+              className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold mt-1"
+              style={{
+                background: 'linear-gradient(135deg, var(--deep-purple), var(--royal-purple))',
+                color: 'var(--glass-white)',
+                boxShadow: '0 0 12px rgba(107, 45, 255, 0.5)'
+              }}
+            >
               {index + 1}
             </div>
 
@@ -400,14 +510,22 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
               onChange={(e) => updateStep(index, e.target.value)}
               placeholder="Describe this step..."
               rows={2}
-              className="flex-1 px-3 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="flex-1 px-3 py-2 glass-card focus:outline-none transition-all duration-300"
+              style={{ borderRadius: '12px', color: 'var(--glass-white)' }}
+              onFocus={(e) => e.target.style.boxShadow = '0 0 16px rgba(0, 255, 157, 0.4)'}
+              onBlur={(e) => e.target.style.boxShadow = ''}
             />
 
             {/* Remove button */}
             <button
               type="button"
               onClick={() => removeStep(index)}
-              className="px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+              className="px-3 py-2 glass-card transition-all duration-300 hover:scale-110"
+              style={{
+                borderRadius: '10px',
+                color: 'rgba(255, 100, 150, 1)',
+                boxShadow: '0 0 12px rgba(255, 0, 80, 0.3)'
+              }}
               aria-label="Remove step"
             >
               ✕
@@ -418,7 +536,20 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
         <button
           type="button"
           onClick={addStep}
-          className="w-full px-4 py-2 border-2 border-dashed border-neutral-300 text-neutral-600 rounded-lg hover:border-orange-500 hover:text-orange-500 transition-colors"
+          className="w-full px-4 py-3 glass-card border-2 border-dashed transition-all duration-300 hover:scale-[1.02]"
+          style={{
+            borderRadius: '12px',
+            borderColor: 'var(--glass-border)',
+            color: 'var(--glass-white)'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.borderColor = 'rgba(0, 212, 255, 0.5)';
+            e.target.style.boxShadow = '0 0 20px rgba(0, 212, 255, 0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.borderColor = 'var(--glass-border)';
+            e.target.style.boxShadow = '';
+          }}
         >
           + Add Step
         </button>
@@ -429,7 +560,14 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 disabled:bg-neutral-300 transition-colors font-medium"
+          className="px-6 py-3 font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed neon-glow-purple"
+          style={{
+            background: isSubmitting
+              ? 'rgba(255, 255, 255, 0.1)'
+              : 'linear-gradient(135deg, var(--deep-purple), var(--royal-purple))',
+            color: 'var(--glass-white)',
+            borderRadius: '14px',
+          }}
         >
           {isSubmitting ? 'Saving...' : mode === 'create' ? 'Create Recipe' : 'Save Changes'}
         </button>
@@ -437,7 +575,11 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
         <button
           type="button"
           onClick={() => router.back()}
-          className="px-6 py-3 bg-neutral-200 text-neutral-700 rounded-lg hover:bg-neutral-300 transition-colors font-medium"
+          className="px-6 py-3 glass-card font-medium transition-all duration-300 hover:scale-105"
+          style={{
+            color: 'var(--glass-white)',
+            borderRadius: '14px',
+          }}
         >
           Cancel
         </button>

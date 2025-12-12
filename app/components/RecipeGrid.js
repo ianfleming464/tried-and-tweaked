@@ -71,11 +71,22 @@ export default function RecipeGrid({ recipes }) {
       />
 
       {filteredAndSortedRecipes.length === 0 ? (
-        <div className="text-center py-16">
-          <p className="text-neutral-500 text-lg">
+        <div className="text-center py-24 px-4">
+          <div className="text-7xl mb-6 filter drop-shadow-lg">🍽️</div>
+          <p
+            className="text-xl mb-3"
+            style={{
+              color: 'var(--glass-white)',
+              fontFamily: 'var(--font-outfit)',
+              textShadow: '0 2px 12px rgba(107, 45, 255, 0.6)'
+            }}
+          >
             {searchQuery || selectedCategories.length > 0
               ? `No recipes found${searchQuery ? ` for "${searchQuery}"` : ''}`
-              : 'No recipes yet. Add your first recipe!'}
+              : 'No recipes yet'}
+          </p>
+          <p className="text-sm" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+            {!(searchQuery || selectedCategories.length > 0) && 'Start by adding your first recipe'}
           </p>
         </div>
       ) : (

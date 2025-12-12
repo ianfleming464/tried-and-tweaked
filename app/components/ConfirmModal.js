@@ -20,20 +20,38 @@ export default function ConfirmModal({ isOpen, onConfirm, onCancel, title, messa
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Overlay */}
+      {/* Overlay with aurora background */}
       <div
-        className="absolute inset-0 bg-black bg-opacity-50"
+        className="absolute inset-0"
+        style={{
+          background: 'rgba(10, 1, 24, 0.9)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+        }}
         onClick={onCancel}
         aria-label="Close modal"
       />
 
-      {/* Modal dialog */}
-      <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
-        <h2 className="text-xl font-bold text-neutral-900 mb-2">
+      {/* Modal dialog with glass effect */}
+      <div
+        className="relative glass-card max-w-md w-full mx-4 p-6 animate-in"
+        style={{
+          borderRadius: '24px',
+          boxShadow: '0 20px 60px rgba(107, 45, 255, 0.4)',
+        }}
+      >
+        <h2
+          className="text-xl font-bold mb-2"
+          style={{
+            fontFamily: 'var(--font-outfit)',
+            color: 'var(--glass-white)',
+            textShadow: '0 2px 12px rgba(255, 0, 80, 0.5)'
+          }}
+        >
           {title}
         </h2>
 
-        <p className="text-neutral-600 mb-6">
+        <p className="mb-6" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
           {message}
         </p>
 
@@ -41,14 +59,25 @@ export default function ConfirmModal({ isOpen, onConfirm, onCancel, title, messa
         <div className="flex gap-3 justify-end">
           <button
             onClick={onCancel}
-            className="px-4 py-2 bg-neutral-200 text-neutral-700 rounded-lg hover:bg-neutral-300 transition-colors font-medium"
+            className="px-5 py-2.5 glass-card font-medium transition-all duration-300 hover:scale-105"
+            style={{
+              color: 'var(--glass-white)',
+              borderRadius: '12px',
+            }}
           >
             {cancelText}
           </button>
 
           <button
             onClick={onConfirm}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
+            className="px-5 py-2.5 font-medium transition-all duration-300 hover:scale-105"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 0, 80, 0.8), rgba(255, 50, 100, 0.8))',
+              color: 'var(--glass-white)',
+              borderRadius: '12px',
+              boxShadow: '0 0 20px rgba(255, 0, 80, 0.5)',
+              border: '1px solid rgba(255, 100, 150, 0.3)',
+            }}
           >
             {confirmText}
           </button>

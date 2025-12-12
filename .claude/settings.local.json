@@ -4,7 +4,10 @@
       "Bash(mkdir:*)",
       "Bash(curl:*)",
       "Bash(sqlite3:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(claude mcp add:*)",
+      "Bash(claude mcp get:*)",
+      "Bash(claude mcp list:*)"
     ],
     "deny": [],
     "ask": []
