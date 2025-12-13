@@ -7,7 +7,8 @@
       "Bash(python3:*)",
       "Bash(claude mcp add:*)",
       "Bash(claude mcp get:*)",
-      "Bash(claude mcp list:*)"
+      "Bash(claude mcp list:*)",
+      "Skill(frontend-design)"
     ],
     "deny": [],
     "ask": []

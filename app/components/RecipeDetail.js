@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import IngredientList from './IngredientList';
 import StepList from './StepList';
 import ConfirmModal from './ConfirmModal';
@@ -57,99 +58,78 @@ export default function RecipeDetail({ recipe }) {
   };
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Recipe header with glass effect */}
-      <div className="glass-card p-6 mb-6" style={{ borderRadius: '24px' }}>
+    <main className="max-w-5xl mx-auto px-8 py-12">
+      {/* Recipe header */}
+      <div className="editorial-card p-10 mb-8">
         {recipe.imageUrl && (
-          <div className="w-full h-64 md:h-96 overflow-hidden mb-6 relative" style={{ borderRadius: '20px' }}>
+          <div className="w-full h-64 md:h-96 overflow-hidden mb-8" style={{ border: '1px solid var(--border-subtle)' }}>
             <img
               src={recipe.imageUrl}
               alt={recipe.title}
               className="w-full h-full object-cover"
             />
-            <div
-              className="absolute inset-0"
-              style={{
-                background: 'linear-gradient(to top, rgba(10, 1, 24, 0.3), transparent)',
-              }}
-            />
           </div>
         )}
 
-        <h1
-          className="text-3xl md:text-4xl font-bold mb-4"
-          style={{
-            fontFamily: 'var(--font-outfit)',
-            color: 'var(--glass-white)',
-            textShadow: '0 0 30px rgba(107, 45, 255, 0.6)',
-          }}
-        >
+        <h1 className="heading-display" style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>
           {recipe.title}
         </h1>
 
         {recipe.description && (
-          <p className="text-lg mb-4 leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
+          <p className="body-text" style={{ fontSize: '1.125rem', lineHeight: '1.8', marginBottom: '2rem', color: 'var(--medium-gray)' }}>
             {recipe.description}
           </p>
         )}
 
-        <div className="flex flex-wrap gap-2 mb-4">
-          {categories.map((category, index) => (
-            <span
-              key={category}
-              className="inline-block px-3 py-1.5 text-sm font-medium"
-              style={{
-                background: index % 3 === 0
-                  ? 'linear-gradient(135deg, rgba(107, 45, 255, 0.3), rgba(139, 92, 246, 0.3))'
-                  : index % 3 === 1
-                  ? 'linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(0, 255, 157, 0.3))'
-                  : 'linear-gradient(135deg, rgba(0, 255, 157, 0.3), rgba(107, 45, 255, 0.3))',
-                color: 'var(--glass-white)',
-                borderRadius: '12px',
-                border: '1px solid var(--glass-border)',
-                backdropFilter: 'blur(8px)',
-                WebkitBackdropFilter: 'blur(8px)',
-              }}
-            >
-              {category}
-            </span>
-          ))}
+        <div className="divider-subtle" style={{ paddingTop: '1.5rem', paddingBottom: '1.5rem', marginBottom: '1.5rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+            {categories.map((category) => (
+              <span key={category} className="category-tag">
+                {category}
+              </span>
+            ))}
+          </div>
         </div>
 
-        <div className="flex flex-wrap gap-4 text-sm" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+        <div className="body-text" style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', fontSize: '0.938rem', color: 'var(--medium-gray)' }}>
           {recipe.source && (
             <div>
-              <span className="font-medium">Source:</span> {recipe.source}
+              <span style={{ fontWeight: '600' }}>Source:</span> {recipe.source}
             </div>
           )}
           <div suppressHydrationWarning>
-            <span className="font-medium">Added:</span> {formattedDate}
+            <span style={{ fontWeight: '600' }}>Added:</span> {formattedDate}
           </div>
         </div>
       </div>
 
-      {/* Serving size selector with glass effect */}
-      <div className="glass-card p-6 mb-6" style={{ borderRadius: '20px' }}>
-        <label className="block text-sm font-medium mb-3" style={{ color: 'var(--glass-white)' }}>
+      {/* Serving size selector */}
+      <div className="editorial-card p-8 mb-8">
+        <label className="label-text block mb-4">
           Servings
         </label>
-        <div className="flex gap-2">
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
           {servingOptions.map(size => (
             <button
               key={size}
               onClick={() => setSelectedServings(size)}
-              className="px-4 py-2 font-medium transition-all duration-300 min-w-[60px] hover:scale-105"
+              className="px-6 py-3 transition-all duration-300 min-w-[60px] hover:scale-105"
               style={selectedServings === size ? {
-                background: 'linear-gradient(135deg, var(--deep-purple), var(--royal-purple))',
-                color: 'var(--glass-white)',
-                borderRadius: '14px',
-                boxShadow: '0 0 20px rgba(107, 45, 255, 0.6)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
+                background: 'var(--charcoal)',
+                color: 'var(--white)',
+                border: '2px solid var(--charcoal)',
+                borderRadius: '4px',
+                fontFamily: 'var(--font-crimson)',
+                fontWeight: '600',
+                fontSize: '1.125rem'
               } : {
-                background: 'var(--glass-bg)',
-                color: 'var(--glass-white)',
-                borderRadius: '14px',
-                border: '1px solid var(--glass-border)',
+                background: 'transparent',
+                color: 'var(--charcoal)',
+                border: '2px solid var(--border-subtle)',
+                borderRadius: '4px',
+                fontFamily: 'var(--font-crimson)',
+                fontWeight: '500',
+                fontSize: '1.125rem'
               }}
               aria-pressed={selectedServings === size}
               aria-label={`${size} servings`}
@@ -159,14 +139,14 @@ export default function RecipeDetail({ recipe }) {
           ))}
         </div>
         {selectedServings !== recipe.baseServings && (
-          <p className="mt-2 text-sm" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+          <p className="body-text" style={{ marginTop: '1rem', fontSize: '0.875rem', color: 'var(--medium-gray)', fontStyle: 'italic' }}>
             Scaled from {recipe.baseServings} servings
           </p>
         )}
       </div>
 
       {/* Two-column layout on desktop, stacked on mobile */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Ingredients - sticky on desktop */}
         <div className="lg:sticky lg:top-4 lg:self-start">
           <IngredientList
@@ -182,28 +162,27 @@ export default function RecipeDetail({ recipe }) {
         </div>
       </div>
 
-      {/* Action buttons with glass effect */}
-      <div className="mt-8 flex gap-4">
-        <a
+      {/* Action buttons */}
+      <div className="mt-12 flex gap-4 flex-wrap">
+        <Link
           href={`/recipes/${recipe.id}/edit`}
-          className="px-6 py-3 font-medium transition-all duration-300 hover:scale-105 glass-card"
-          style={{
-            color: 'var(--glass-white)',
-            borderRadius: '14px',
-            display: 'inline-block',
-          }}
+          className="btn-secondary"
+          style={{ textDecoration: 'none', display: 'inline-block' }}
         >
           Edit Recipe
-        </a>
+        </Link>
         <button
           onClick={() => setShowDeleteModal(true)}
-          className="px-6 py-3 font-medium transition-all duration-300 hover:scale-105"
+          className="transition-all duration-300 hover:scale-105"
           style={{
-            background: 'linear-gradient(135deg, rgba(255, 0, 80, 0.7), rgba(255, 50, 100, 0.7))',
-            color: 'var(--glass-white)',
-            borderRadius: '14px',
-            boxShadow: '0 0 20px rgba(255, 0, 80, 0.4)',
-            border: '1px solid rgba(255, 100, 150, 0.3)',
+            background: '#b5533d',
+            color: 'var(--white)',
+            padding: '0.875rem 2rem',
+            border: '2px solid #b5533d',
+            borderRadius: '4px',
+            fontFamily: 'var(--font-crimson)',
+            fontWeight: '500',
+            cursor: 'pointer'
           }}
         >
           Delete Recipe

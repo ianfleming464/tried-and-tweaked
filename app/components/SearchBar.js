@@ -1,78 +1,56 @@
 export default function SearchBar({ searchQuery, setSearchQuery, sortBy, setSortBy }) {
   return (
-    <div className='flex gap-3'>
-      {/* Search input with glassmorphism */}
-      <div className='flex-1 relative'>
+    <div className='flex gap-4 flex-wrap'>
+      {/* Search input */}
+      <div className='flex-1 relative' style={{ minWidth: '250px' }}>
         <input
           type='text'
           placeholder='Search recipes...'
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
-          className='w-full pl-12 pr-12 py-4 glass-card focus:outline-none transition-all duration-300'
+          className='w-full px-5 py-3.5 body-text focus:outline-none transition-all duration-300'
           style={{
-            color: 'var(--glass-white)',
-            borderRadius: '16px',
-            paddingLeft: '16px !important',
-          }}
-          onFocus={e => {
-            e.target.style.boxShadow =
-              '0 0 24px rgba(0, 212, 255, 0.4), 0 8px 32px rgba(107, 45, 255, 0.2)';
-            e.target.style.borderColor = 'rgba(0, 212, 255, 0.5)';
-          }}
-          onBlur={e => {
-            e.target.style.boxShadow = '';
-            e.target.style.borderColor = 'var(--glass-border)';
+            border: '2px solid var(--border-subtle)',
+            borderRadius: '4px',
+            background: 'var(--white)',
           }}
         />
         {/* Clear button */}
         {searchQuery && (
           <button
             onClick={() => setSearchQuery('')}
-            className='absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center transition-all hover:scale-110 glass-card'
+            className='absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center transition-all hover:scale-110'
             style={{
-              color: 'var(--glass-white)',
-              borderRadius: '50%',
+              color: 'var(--medium-gray)',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '1.25rem'
             }}
             aria-label='Clear search'>
-            ✕
+            ×
           </button>
         )}
       </div>
 
-      {/* Sort dropdown with glass styling */}
+      {/* Sort dropdown */}
       <div className='relative inline-block'>
         <select
           value={sortBy}
           onChange={e => setSortBy(e.target.value)}
-          className='
-            appearance-none
-            pl-5 pr-10 py-4
-            glass-card
-            focus:outline-none
-            transition-all
-            duration-300
-            cursor-pointer
-          '
+          className='appearance-none px-5 py-3.5 body-text focus:outline-none transition-all duration-300 cursor-pointer'
           style={{
-            color: 'var(--glass-white)',
-            borderRadius: '16px',
+            border: '2px solid var(--border-subtle)',
+            borderRadius: '4px',
+            background: 'var(--white)',
             minWidth: '160px',
-          }}
-          onFocus={e => {
-            e.target.style.boxShadow =
-              '0 0 24px rgba(0, 255, 157, 0.4), 0 8px 32px rgba(107, 45, 255, 0.2)';
-            e.target.style.borderColor = 'rgba(0, 255, 157, 0.5)';
-          }}
-          onBlur={e => {
-            e.target.style.boxShadow = '';
-            e.target.style.borderColor = 'var(--glass-border)';
           }}>
-          <option value='newest'>⏰ Newest</option>
-          <option value='oldest'>📅 Oldest</option>
-          <option value='alphabetical'>🔤 A-Z</option>
+          <option value='newest'>Newest First</option>
+          <option value='oldest'>Oldest First</option>
+          <option value='alphabetical'>Alphabetical</option>
         </select>
         {/* Custom arrow */}
-        <span className='pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/70'>
+        <span className='pointer-events-none absolute right-4 top-1/2 -translate-y-1/2' style={{ color: 'var(--medium-gray)', fontSize: '0.75rem' }}>
           ▼
         </span>
       </div>

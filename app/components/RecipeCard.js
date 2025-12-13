@@ -8,9 +8,8 @@ export default function RecipeCard({ recipe }) {
   const [formattedDate, setFormattedDate] = useState('');
 
   useEffect(() => {
-    // Format date only on client to avoid hydration mismatch
     setFormattedDate(new Date(recipe.createdAt).toLocaleDateString('en-US', {
-      month: 'short',
+      month: 'long',
       day: 'numeric',
       year: 'numeric'
     }));
@@ -18,79 +17,42 @@ export default function RecipeCard({ recipe }) {
 
   return (
     <Link href={`/recipes/${recipe.id}`} className="block group">
-      <article
-        className="overflow-hidden glass-card transition-all duration-500 group-hover:glass-card-hover"
-        style={{
-          borderRadius: '20px'
-        }}
-      >
-        {/* Recipe image with aurora overlay */}
-        <div className="relative h-56 overflow-hidden" style={{ background: 'var(--dark-surface)' }}>
+      <article className="editorial-card overflow-hidden">
+        {/* Recipe image */}
+        <div className="relative h-64 overflow-hidden" style={{ background: 'var(--off-white)', borderBottom: '1px solid var(--border-subtle)' }}>
           {recipe.imageUrl ? (
-            <>
-              <img
-                src={recipe.imageUrl}
-                alt={recipe.title}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(107, 45, 255, 0.3), rgba(0, 212, 255, 0.2))'
-                }}
-              />
-            </>
+            <img
+              src={recipe.imageUrl}
+              alt={recipe.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
           ) : (
-            <div className="w-full h-full flex items-center justify-center" style={{ background: 'var(--dark-surface)' }}>
-              <span className="text-7xl filter drop-shadow-lg">🍽️</span>
+            <div className="w-full h-full flex items-center justify-center">
+              <span style={{ fontSize: '5rem', opacity: 0.4 }}>🍽️</span>
             </div>
           )}
         </div>
 
-        {/* Card content with glass effect */}
-        <div className="p-5">
-          <h3
-            className="font-bold text-lg mb-3 line-clamp-2"
-            style={{
-              fontFamily: 'var(--font-outfit)',
-              color: 'var(--glass-white)',
-              textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)'
-            }}
-          >
+        {/* Card content */}
+        <div className="p-8">
+          <h3 className="heading-section" style={{ fontSize: '1.75rem', marginBottom: '1rem', lineHeight: '1.3' }}>
             {recipe.title}
           </h3>
 
-          {/* Category tags with neon accents */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {categories.map((category, index) => (
-              <span
-                key={category}
-                className="inline-block px-3 py-1.5 text-xs font-medium transition-all duration-300 hover:scale-105"
-                style={{
-                  background: index % 3 === 0
-                    ? 'linear-gradient(135deg, rgba(107, 45, 255, 0.3), rgba(139, 92, 246, 0.3))'
-                    : index % 3 === 1
-                    ? 'linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(0, 255, 157, 0.3))'
-                    : 'linear-gradient(135deg, rgba(0, 255, 157, 0.3), rgba(107, 45, 255, 0.3))',
-                  color: 'var(--glass-white)',
-                  borderRadius: '10px',
-                  border: '1px solid var(--glass-border)',
-                  backdropFilter: 'blur(8px)',
-                  WebkitBackdropFilter: 'blur(8px)',
-                }}
-              >
-                {category}
-              </span>
-            ))}
+          {/* Category tags */}
+          <div className="divider-subtle divider-subtle" style={{ paddingTop: '1rem', paddingBottom: '1rem', margin: '1.5rem 0' }}>
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              {categories.map((category) => (
+                <span key={category} className="category-tag">
+                  {category}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* Meta information */}
-          <div className="flex items-center justify-between text-sm" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-            <span className="flex items-center gap-1.5">
-              <span>👥</span>
-              {recipe.baseServings} servings
-            </span>
+          <div className="body-text" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.938rem', color: 'var(--medium-gray)' }}>
+            <span>Serves {recipe.baseServings}</span>
             <span suppressHydrationWarning>{formattedDate}</span>
           </div>
         </div>

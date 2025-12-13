@@ -17,12 +17,12 @@ export default async function RecipePage({ params }) {
     include: {
       ingredients: {
         orderBy: {
-          order: 'asc'  // Sort ingredients by their order field
+          order: 'asc'
         }
       },
       steps: {
         orderBy: {
-          order: 'asc'  // Sort steps by their order field
+          order: 'asc'
         }
       }
     }
@@ -34,27 +34,20 @@ export default async function RecipePage({ params }) {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--dark-bg)' }}>
-      {/* Animated Aurora Background */}
-      <div className="aurora-background">
-        <div className="aurora-blob aurora-blob-1"></div>
-        <div className="aurora-blob aurora-blob-2"></div>
-        <div className="aurora-blob aurora-blob-3"></div>
-      </div>
-
-      {/* Glass Header with back button */}
-      <header className="glass-header sticky top-0 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+    <div className="min-h-screen" style={{ background: 'var(--warm-white)' }}>
+      {/* Header with back button */}
+      <header className="divider-subtle" style={{ background: 'var(--white)', padding: '1.5rem 0' }}>
+        <div className="max-w-5xl mx-auto px-8">
           <Link
             href="/"
-            className="inline-flex items-center transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center transition-all duration-300 hover:-translate-x-1"
             style={{
-              color: 'var(--glass-white)',
-              textShadow: '0 0 20px rgba(0, 212, 255, 0.5)'
+              color: 'var(--charcoal)',
+              textDecoration: 'none',
             }}
           >
             <span className="mr-2 text-xl">←</span>
-            <span className="font-medium">Back to recipes</span>
+            <span className="body-text" style={{ fontWeight: '500' }}>Back to recipes</span>
           </Link>
         </div>
       </header>

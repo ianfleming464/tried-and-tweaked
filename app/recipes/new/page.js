@@ -3,41 +3,27 @@ import RecipeForm from '@/app/components/RecipeForm';
 
 export default function NewRecipePage() {
   return (
-    <div className="min-h-screen" style={{ background: 'var(--dark-bg)' }}>
-      {/* Animated Aurora Background */}
-      <div className="aurora-background">
-        <div className="aurora-blob aurora-blob-1"></div>
-        <div className="aurora-blob aurora-blob-2"></div>
-        <div className="aurora-blob aurora-blob-3"></div>
-      </div>
-
-      {/* Glass Header */}
-      <header className="glass-header sticky top-0 z-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+    <div className="min-h-screen" style={{ background: 'var(--warm-white)' }}>
+      {/* Header */}
+      <header className="divider-subtle" style={{ background: 'var(--white)', padding: '1.5rem 0' }}>
+        <div className="max-w-4xl mx-auto px-8">
           <Link
             href="/"
-            className="inline-flex items-center transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center transition-all duration-300 hover:-translate-x-1"
             style={{
-              color: 'var(--glass-white)',
-              textShadow: '0 0 20px rgba(0, 212, 255, 0.5)'
+              color: 'var(--charcoal)',
+              textDecoration: 'none',
             }}
           >
             <span className="mr-2 text-xl">←</span>
-            <span className="font-medium">Back to recipes</span>
+            <span className="body-text" style={{ fontWeight: '500' }}>Back to recipes</span>
           </Link>
         </div>
       </header>
 
       {/* Form */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1
-          className="text-3xl font-bold mb-8"
-          style={{
-            fontFamily: 'var(--font-outfit)',
-            color: 'var(--glass-white)',
-            textShadow: '0 0 30px rgba(107, 45, 255, 0.5)'
-          }}
-        >
+      <main className="max-w-4xl mx-auto px-8 py-12">
+        <h1 className="heading-display" style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
           Add New Recipe
         </h1>
         <RecipeForm mode="create" />

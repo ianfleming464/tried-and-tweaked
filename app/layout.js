@@ -1,28 +1,28 @@
-import { Outfit, DM_Sans } from "next/font/google";
+import { Playfair_Display, Crimson_Pro } from "next/font/google";
 import "./globals.css";
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["600", "700"],
 });
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+const crimsonPro = Crimson_Pro({
+  variable: "--font-crimson",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata = {
-  title: "Family Recipes - Glass Aurora",
-  description: "An ethereal, glassmorphic recipe manager with aurora borealis aesthetics.",
+  title: "Family Recipes - Our Cookbook",
+  description: "A warm, editorial family recipe manager inspired by traditional cookbooks.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${outfit.variable} ${dmSans.variable} antialiased`}
+        className={`${playfair.variable} ${crimsonPro.variable} antialiased`}
         suppressHydrationWarning
       >
         {children}

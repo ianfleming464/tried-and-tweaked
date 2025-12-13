@@ -20,63 +20,56 @@ export default function ConfirmModal({ isOpen, onConfirm, onCancel, title, messa
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Overlay with aurora background */}
+      {/* Overlay */}
       <div
         className="absolute inset-0"
         style={{
-          background: 'rgba(10, 1, 24, 0.9)',
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
+          background: 'rgba(0, 0, 0, 0.6)',
+          backdropFilter: 'blur(4px)',
+          WebkitBackdropFilter: 'blur(4px)',
         }}
         onClick={onCancel}
         aria-label="Close modal"
       />
 
-      {/* Modal dialog with glass effect */}
+      {/* Modal dialog */}
       <div
-        className="relative glass-card max-w-md w-full mx-4 p-6 animate-in"
+        className="relative max-w-md w-full mx-4 p-8"
         style={{
-          borderRadius: '24px',
-          boxShadow: '0 20px 60px rgba(107, 45, 255, 0.4)',
+          background: 'var(--white)',
+          border: '2px solid var(--border-subtle)',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
         }}
       >
-        <h2
-          className="text-xl font-bold mb-2"
-          style={{
-            fontFamily: 'var(--font-outfit)',
-            color: 'var(--glass-white)',
-            textShadow: '0 2px 12px rgba(255, 0, 80, 0.5)'
-          }}
-        >
+        <h2 className="heading-section" style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
           {title}
         </h2>
 
-        <p className="mb-6" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+        <p className="body-text" style={{ marginBottom: '2rem', color: 'var(--medium-gray)' }}>
           {message}
         </p>
 
         {/* Action buttons */}
-        <div className="flex gap-3 justify-end">
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
           <button
             onClick={onCancel}
-            className="px-5 py-2.5 glass-card font-medium transition-all duration-300 hover:scale-105"
-            style={{
-              color: 'var(--glass-white)',
-              borderRadius: '12px',
-            }}
+            className="btn-secondary"
           >
             {cancelText}
           </button>
 
           <button
             onClick={onConfirm}
-            className="px-5 py-2.5 font-medium transition-all duration-300 hover:scale-105"
+            className="transition-all duration-300 hover:scale-105"
             style={{
-              background: 'linear-gradient(135deg, rgba(255, 0, 80, 0.8), rgba(255, 50, 100, 0.8))',
-              color: 'var(--glass-white)',
-              borderRadius: '12px',
-              boxShadow: '0 0 20px rgba(255, 0, 80, 0.5)',
-              border: '1px solid rgba(255, 100, 150, 0.3)',
+              background: '#b5533d',
+              color: 'var(--white)',
+              padding: '0.875rem 2rem',
+              border: '2px solid #b5533d',
+              borderRadius: '4px',
+              fontFamily: 'var(--font-crimson)',
+              fontWeight: '500',
+              cursor: 'pointer'
             }}
           >
             {confirmText}

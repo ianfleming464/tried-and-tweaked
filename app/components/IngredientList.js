@@ -54,15 +54,8 @@ function formatIngredient(ingredient, baseServings, selectedServings) {
 
 export default function IngredientList({ ingredients, baseServings, selectedServings }) {
   return (
-    <div className="glass-card p-6" style={{ borderRadius: '20px' }}>
-      <h2
-        className="text-2xl font-bold mb-4"
-        style={{
-          fontFamily: 'var(--font-outfit)',
-          color: 'var(--glass-white)',
-          textShadow: '0 2px 12px rgba(0, 255, 157, 0.5)'
-        }}
-      >
+    <div className="editorial-card p-8">
+      <h2 className="heading-section" style={{ fontSize: '1.75rem', marginBottom: '1.5rem' }}>
         Ingredients
       </h2>
 
@@ -71,23 +64,23 @@ export default function IngredientList({ ingredients, baseServings, selectedServ
           const formatted = formatIngredient(ingredient, baseServings, selectedServings);
 
           return (
-            <li key={ingredient.id} className="flex items-start">
-              {/* Bullet point with neon glow */}
-              <span className="mr-3 mt-1 text-lg" style={{ color: 'var(--emerald-glow)', textShadow: '0 0 10px rgba(0, 255, 157, 0.6)' }}>
+            <li key={ingredient.id} className="flex items-start body-text">
+              {/* Bullet point */}
+              <span className="mr-3 mt-1 text-lg" style={{ color: 'var(--accent-rust)' }}>
                 •
               </span>
 
               {/* Ingredient details */}
               <div className="flex-1">
-                <span style={{ color: 'var(--glass-white)' }}>
+                <span>
                   {/* Quantity and unit */}
                   {formatted.quantity !== 'As needed' && (
-                    <span className="font-medium" style={{ color: 'var(--cyan-glow)' }}>
+                    <span className="font-medium" style={{ color: 'var(--charcoal)' }}>
                       {formatted.quantity} {formatted.unit}{' '}
                     </span>
                   )}
                   {formatted.quantity === 'As needed' && (
-                    <span className="font-medium italic" style={{ color: 'var(--cyan-glow)' }}>As needed — </span>
+                    <span className="font-medium italic" style={{ color: 'var(--accent-rust)' }}>As needed — </span>
                   )}
 
                   {/* Ingredient name */}
@@ -96,7 +89,7 @@ export default function IngredientList({ ingredients, baseServings, selectedServ
 
                 {/* Optional note */}
                 {formatted.note && (
-                  <span className="text-sm ml-1" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                  <span className="text-sm ml-1" style={{ color: 'var(--medium-gray)', fontStyle: 'italic' }}>
                     ({formatted.note})
                   </span>
                 )}
