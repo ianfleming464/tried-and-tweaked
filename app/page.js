@@ -25,14 +25,14 @@ export default async function Home() {
           <div className="flex items-center gap-3">
             <span className="text-4xl">🍽️</span>
             <h1
-              className="text-3xl font-bold"
+              className="text-2xl font-bold"
               style={{
                 fontFamily: 'var(--font-outfit)',
                 color: 'var(--glass-white)',
                 textShadow: '0 0 30px rgba(107, 45, 255, 0.5)'
               }}
             >
-              Family Recipes
+              Tried & Tweaked - our family cookbook
             </h1>
           </div>
         </div>
