@@ -66,7 +66,7 @@ export default function ConfirmModal({ isOpen, onConfirm, onCancel, title, messa
               color: 'var(--white)',
               padding: '0.875rem 2rem',
               border: '2px solid #b5533d',
-              borderRadius: '4px',
+              borderRadius: '7px',
               fontFamily: 'var(--font-crimson)',
               fontWeight: '500',
               cursor: 'pointer'

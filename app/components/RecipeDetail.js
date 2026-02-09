@@ -118,7 +118,7 @@ export default function RecipeDetail({ recipe }) {
                 background: 'var(--charcoal)',
                 color: 'var(--white)',
                 border: '2px solid var(--charcoal)',
-                borderRadius: '4px',
+                borderRadius: '7px',
                 fontFamily: 'var(--font-crimson)',
                 fontWeight: '600',
                 fontSize: '1.125rem'
@@ -126,7 +126,7 @@ export default function RecipeDetail({ recipe }) {
                 background: 'transparent',
                 color: 'var(--charcoal)',
                 border: '2px solid var(--border-subtle)',
-                borderRadius: '4px',
+                borderRadius: '7px',
                 fontFamily: 'var(--font-crimson)',
                 fontWeight: '500',
                 fontSize: '1.125rem'
@@ -179,7 +179,7 @@ export default function RecipeDetail({ recipe }) {
             color: 'var(--white)',
             padding: '0.875rem 2rem',
             border: '2px solid #b5533d',
-            borderRadius: '4px',
+            borderRadius: '7px',
             fontFamily: 'var(--font-crimson)',
             fontWeight: '500',
             cursor: 'pointer'

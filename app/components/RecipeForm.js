@@ -397,7 +397,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
                   background: 'var(--charcoal)',
                   color: 'var(--white)',
                   border: '2px solid var(--charcoal)',
-                  borderRadius: '4px',
+                  borderRadius: '7px',
                   fontFamily: 'var(--font-crimson)',
                   fontWeight: '500',
                   textTransform: 'uppercase',
@@ -407,7 +407,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
                   background: 'transparent',
                   color: 'var(--charcoal)',
                   border: '2px solid var(--border-subtle)',
-                  borderRadius: '4px',
+                  borderRadius: '7px',
                   fontFamily: 'var(--font-crimson)',
                   fontWeight: '500',
                   textTransform: 'uppercase',
@@ -500,7 +500,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
               className="px-3 py-2 transition-all duration-300 hover:scale-110"
               style={{
                 border: '2px solid var(--accent-rust)',
-                borderRadius: '4px',
+                borderRadius: '7px',
                 color: 'var(--accent-rust)',
                 background: 'var(--white)',
                 cursor: 'pointer'
@@ -518,7 +518,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
           className="w-full px-4 py-3 transition-all duration-300 hover:scale-[1.01]"
           style={{
             border: '2px dashed var(--border-subtle)',
-            borderRadius: '4px',
+            borderRadius: '7px',
             background: 'transparent',
             color: 'var(--charcoal)',
             fontFamily: 'var(--font-crimson)',
@@ -578,7 +578,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
               className="px-3 py-2 transition-all duration-300 hover:scale-110"
               style={{
                 border: '2px solid var(--accent-rust)',
-                borderRadius: '4px',
+                borderRadius: '7px',
                 color: 'var(--accent-rust)',
                 background: 'var(--white)',
                 cursor: 'pointer'
@@ -596,7 +596,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
           className="w-full px-4 py-3 transition-all duration-300 hover:scale-[1.01]"
           style={{
             border: '2px dashed var(--border-subtle)',
-            borderRadius: '4px',
+            borderRadius: '7px',
             background: 'transparent',
             color: 'var(--charcoal)',
             fontFamily: 'var(--font-crimson)',

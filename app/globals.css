@@ -93,6 +93,7 @@ body {
   color: var(--white);
   padding: 0.875rem 2rem;
   border: 2px solid var(--charcoal);
+  border-radius: 7px;
   font-family: var(--font-crimson), serif;
   font-weight: 500;
   transition: all 0.2s ease;
@@ -109,6 +110,7 @@ body {
   color: var(--charcoal);
   padding: 0.875rem 2rem;
   border: 2px solid var(--charcoal);
+  border-radius: 7px;
   font-family: var(--font-crimson), serif;
   font-weight: 500;
   transition: all 0.2s ease;
@@ -207,4 +209,8 @@ textarea::-ms-input-placeholder {
 a,
 button {
   transition: all 0.2s ease;
+}
+
+button {
+  border-radius: 7px;
 }
