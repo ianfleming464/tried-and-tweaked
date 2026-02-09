@@ -3,6 +3,9 @@ import { notFound } from 'next/navigation';
 import RecipeDetail from '@/app/components/RecipeDetail';
 import Link from 'next/link';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export default async function RecipePage({ params }) {
   // In Next.js 16+, params is a Promise and must be awaited
   const { id } = await params;

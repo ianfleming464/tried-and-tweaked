@@ -2,6 +2,9 @@ import prisma from '@/app/lib/prisma';
 import RecipeGrid from './components/RecipeGrid';
 import Link from 'next/link';
 
+// Force dynamic rendering (don't prerender at build time)
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const recipes = await prisma.recipe.findMany({
     orderBy: {
