@@ -17,7 +17,7 @@ export default function RecipeCard({ recipe }) {
 
   return (
     <Link href={`/recipes/${recipe.id}`} className="block group">
-      <article className="editorial-card overflow-hidden">
+      <article className="editorial-card overflow-hidden h-full flex flex-col">
         {/* Recipe image */}
         <div className="relative h-64 overflow-hidden" style={{ background: 'var(--off-white)', borderBottom: '1px solid var(--border-subtle)' }}>
           {recipe.imageUrl ? (
@@ -34,8 +34,8 @@ export default function RecipeCard({ recipe }) {
         </div>
 
         {/* Card content */}
-        <div className="p-8">
-          <h3 className="heading-section" style={{ fontSize: '1.75rem', marginBottom: '1rem', lineHeight: '1.3' }}>
+        <div className="p-8 flex-1 flex flex-col">
+          <h3 className="heading-section" style={{ fontSize: '1.75rem', marginBottom: '1rem', lineHeight: '1.3', minHeight: '4.6rem' }}>
             {recipe.title}
           </h3>
 
@@ -51,7 +51,7 @@ export default function RecipeCard({ recipe }) {
           </div>
 
           {/* Meta information */}
-          <div className="body-text" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.938rem', color: 'var(--medium-gray)' }}>
+          <div className="body-text" style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.938rem', color: 'var(--medium-gray)', marginTop: 'auto' }}>
             <span>Serves {recipe.baseServings}</span>
             <span suppressHydrationWarning>{formattedDate}</span>
           </div>
