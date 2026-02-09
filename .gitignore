@@ -51,3 +51,4 @@ prisma/dev.db-journal
 
 # local planning docs
 NEON_MIGRATION_PLAN.md
+.env*.local

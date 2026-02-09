@@ -2,6 +2,10 @@
 
 This document contains **long-form context** that is useful for human onboarding and deep understanding, but **not required for agentic progress**.
 
+> Note: The live stack now uses **Neon Postgres + Prisma (`postgresql`)**.
+> Some deep-dive sections below discuss earlier SQLite/Turso iterations for historical context.
+> For current operational setup, use `DEV_GUIDE.md` and `prisma/schema.prisma`.
+
 If you are an agent (or you’re using Claude Code with limited context), prefer:
 - **DEVELOPER_GUIDE.md** — roadmap + phases + guardrails (lean)
 - **CLAUDE.md** — commands + rules + business logic (operational)

@@ -23,7 +23,7 @@ Core capabilities:
 
 ### Status: DEPLOYED TO PRODUCTION
 - **Production URL**: https://tried-and-tweaked.vercel.app
-- **Database**: Turso (LibSQL) - serverless SQLite
+- **Database**: Neon Postgres
 - **Hosting**: Vercel
 
 ### Completed Features
@@ -35,16 +35,15 @@ Core capabilities:
 - ✅ Delete recipe (with confirmation)
 - ✅ Seed data with 6 sample recipes
 - ✅ Mobile-first responsive design
-- ✅ Production deployment with Turso database
+- ✅ Production deployment with Neon Postgres
 
 ### Deployment Architecture
-- **Local Development**: SQLite file database (`prisma/dev.db`)
-- **Production**: Turso (LibSQL) via `@prisma/adapter-libsql`
-- **Auto-detection**: [app/lib/prisma.js](app/lib/prisma.js) switches between SQLite and Turso based on environment
+- **Database**: Neon Postgres for both local server runtime and production
+- **ORM**: Prisma with `postgresql` datasource provider
 
 ### Environment Variables
-- **Local**: `DATABASE_URL="file:./dev.db"`
-- **Production (Vercel)**: `TURSO_DATABASE_URL` + `TURSO_AUTH_TOKEN`
+- `DATABASE_URL` (Neon pooled URL)
+- `DIRECT_URL` (Neon direct URL, used by Prisma Migrate)
 
 ### Out of scope (Phase 1)
 - Authentication / multi-user
@@ -92,14 +91,14 @@ Full details are in **CLAUDE.md**.
 - Reset DB + seed: `npx prisma migrate reset`
 
 ### Production Database Operations
-Requires your Turso credentials from Vercel environment variables:
+Requires `DATABASE_URL` and `DIRECT_URL` set to Neon connection strings:
 
 ```bash
-# Run migrations to Turso
-TURSO_DATABASE_URL="<url>" TURSO_AUTH_TOKEN="<token>" npx prisma migrate deploy
+# Run migrations
+npx prisma migrate deploy
 
 # Seed production database
-TURSO_DATABASE_URL="<url>" TURSO_AUTH_TOKEN="<token>" npx prisma db seed
+npx prisma db seed
 ```
 
 ### Deployment

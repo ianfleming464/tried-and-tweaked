@@ -44,7 +44,10 @@ cd tried-and-tweaked
 npm install
 
 # Set up environment variables
-echo 'DATABASE_URL="file:./dev.db"' > .env
+cat > .env <<'EOF'
+DATABASE_URL="postgresql://<user>:<password>@<host>-pooler.<region>.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+DIRECT_URL="postgresql://<user>:<password>@<host>.<region>.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+EOF
 
 # Initialize database and seed with sample data
 npx prisma migrate dev
@@ -64,7 +67,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the app!
 
 ### Database
 - **Prisma** - Type-safe database ORM
-- **SQLite** - Lightweight file-based database (perfect for single-user apps)
+- **Neon Postgres** - Serverless Postgres for production-grade reliability
 
 ### Styling
 - **Tailwind CSS 4** - Utility-first CSS framework
@@ -105,7 +108,7 @@ tried-and-tweaked/
 │   ├── schema.prisma             # Database schema definition
 │   ├── seed.js                   # Sample data for development
 │   └── migrations/               # Database migration history
-│       └── 20251026101900_initial_schema/
+│       └── 20260209193758_init_postgres/
 │
 ├── public/                       # Static assets
 │
@@ -193,10 +196,10 @@ git push                                     # Push to remote
 - **Solution**: Run `npx prisma generate`
 
 **Problem**: Migration fails
-- **Solution**: Delete `prisma/dev.db` and run `npx prisma migrate reset`
+- **Solution**: Verify `DATABASE_URL` and `DIRECT_URL` point to Neon, then run `npx prisma migrate dev`
 
 **Problem**: Can't connect to database
-- **Solution**: Check `.env` file exists with `DATABASE_URL="file:./dev.db"`
+- **Solution**: Check `.env` includes valid Neon `DATABASE_URL` (pooled) and `DIRECT_URL` (direct)
 
 ### Next.js Issues
 
