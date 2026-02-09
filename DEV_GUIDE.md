@@ -19,26 +19,32 @@ Core capabilities:
 
 ---
 
-## Phase 1 — MVP (single-user)
+## Phase 1 — MVP (single-user) ✅ COMPLETE
 
-### Goal
-Ship a stable, pleasant-to-use personal recipe manager that works great on mobile.
+### Status: DEPLOYED TO PRODUCTION
+- **Production URL**: https://tried-and-tweaked.vercel.app
+- **Database**: Turso (LibSQL) - serverless SQLite
+- **Hosting**: Vercel
 
-### Must-have
-- Home: recipe grid + search + category filter
-- Recipe detail: ingredients + steps visible together (no tab switching required)
-- Serving selector: scales ingredients instantly
-- Create recipe
-- Edit recipe
-- Delete recipe (with confirmation)
-- Seed data exists and demonstrates scaling + categories
+### Completed Features
+- ✅ Home: recipe grid + search + category filter
+- ✅ Recipe detail: ingredients + steps visible together (no tab switching required)
+- ✅ Serving selector: scales ingredients instantly
+- ✅ Create recipe
+- ✅ Edit recipe
+- ✅ Delete recipe (with confirmation)
+- ✅ Seed data with 6 sample recipes
+- ✅ Mobile-first responsive design
+- ✅ Production deployment with Turso database
 
-### Acceptance criteria
-- `npm run dev` works on a fresh clone after `npm install`
-- Prisma migrations + seed work via documented commands
-- Create/edit/delete works end-to-end without console errors
-- Scaling rules match CLAUDE.md (to-taste not scaled, “as needed”, rounding)
-- Mobile UX: tap targets and scrolling feel sensible
+### Deployment Architecture
+- **Local Development**: SQLite file database (`prisma/dev.db`)
+- **Production**: Turso (LibSQL) via `@prisma/adapter-libsql`
+- **Auto-detection**: [app/lib/prisma.js](app/lib/prisma.js) switches between SQLite and Turso based on environment
+
+### Environment Variables
+- **Local**: `DATABASE_URL="file:./dev.db"`
+- **Production (Vercel)**: `TURSO_DATABASE_URL` + `TURSO_AUTH_TOKEN`
 
 ### Out of scope (Phase 1)
 - Authentication / multi-user
@@ -79,7 +85,23 @@ Not required for Phase 1. Examples:
 
 Full details are in **CLAUDE.md**.
 
+### Local Development
 - Dev server: `npm run dev`
 - Lint: `npm run lint`
 - Prisma generate: `npx prisma generate`
 - Reset DB + seed: `npx prisma migrate reset`
+
+### Production Database Operations
+Requires your Turso credentials from Vercel environment variables:
+
+```bash
+# Run migrations to Turso
+TURSO_DATABASE_URL="<url>" TURSO_AUTH_TOKEN="<token>" npx prisma migrate deploy
+
+# Seed production database
+TURSO_DATABASE_URL="<url>" TURSO_AUTH_TOKEN="<token>" npx prisma db seed
+```
+
+### Deployment
+- **Auto-deploy**: Push to `main` branch triggers Vercel deployment
+- **Manual deploy**: Vercel dashboard → Deployments → Redeploy
