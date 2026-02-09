@@ -37,8 +37,8 @@ A mobile-first web application for storing, managing, and scaling family recipes
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
-cd family-recipes
+git clone https://github.com/ianfleming464/tried-and-tweaked
+cd tried-and-tweaked
 
 # Install dependencies
 npm install
@@ -77,7 +77,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the app!
 ## 📁 Project Structure
 
 ```
-family-recipes/
+tried-and-tweaked/
 ├── app/                          # Next.js App Router directory
 │   ├── components/               # Reusable React components
 │   │   ├── RecipeCard.js         # Recipe card for grid display
