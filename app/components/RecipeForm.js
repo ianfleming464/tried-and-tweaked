@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const CATEGORIES = ['Vegetarian', 'Vegan', 'Pasta', 'Curry', 'Sandwiches', 'Breakfast'];
@@ -11,7 +11,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
   // Initialize form state - either empty (create) or from initialData (edit)
   const [title, setTitle] = useState(initialData?.title ?? '');
   const [description, setDescription] = useState(initialData?.description ?? '');
-  const [imageUrl, setImageUrl] = useState(initialData?.imageUrl ?? '');
+  const [existingImageUrl, setExistingImageUrl] = useState(initialData?.imageUrl ?? '');
   const [baseServings, setBaseServings] = useState(initialData?.baseServings ?? 4);
   const [source, setSource] = useState(initialData?.source ?? '');
   const [selectedCategories, setSelectedCategories] = useState(
@@ -45,6 +45,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [imageFile, setImageFile] = useState(null);
+  const fileInputRef = useRef(null);
 
   const maxImageSizeBytes = 5 * 1024 * 1024;
 
@@ -159,7 +160,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
 
   const uploadSelectedImage = async () => {
     if (!imageFile) {
-      return imageUrl.trim() || null;
+      return existingImageUrl?.trim() || null;
     }
 
     setIsUploadingImage(true);
@@ -179,6 +180,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
         throw new Error(responseData.error || 'Failed to upload image');
       }
 
+      setExistingImageUrl(responseData.url);
       return responseData.url;
     } finally {
       setIsUploadingImage(false);
@@ -307,7 +309,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
 
         {/* Image upload */}
         <div>
-          <label htmlFor="imageFile" className="label-text block mb-2">
+          <label htmlFor="imageFile" className="label-text block mb-3">
             Upload Image
           </label>
           <input
@@ -315,44 +317,29 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
             id="imageFile"
             accept="image/jpeg,image/png,image/webp,image/gif"
             onChange={handleImageFileChange}
-            className="w-full px-4 py-3 body-text focus:outline-none transition-all duration-300"
-            style={{
-              border: '2px solid var(--border-subtle)',
-              borderRadius: '4px',
-              background: 'var(--white)'
-            }}
+            ref={fileInputRef}
+            className="sr-only"
           />
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="btn-primary"
+          >
+            {imageFile ? 'Change File' : 'Choose File'}
+          </button>
           <p className="body-text mt-2" style={{ fontSize: '0.875rem', color: 'var(--medium-gray)' }}>
-            JPG, PNG, WEBP, or GIF up to 5MB. Uploaded image takes priority over URL.
+            JPG, PNG, WEBP, or GIF up to 5MB.
           </p>
           {imageFile && (
             <p className="body-text mt-2" style={{ fontSize: '0.875rem', color: 'var(--charcoal)' }}>
               Selected: {imageFile.name}
             </p>
           )}
-        </div>
-
-        {/* Image URL fallback */}
-        <div>
-          <label htmlFor="imageUrl" className="label-text block mb-2">
-            Image URL
-          </label>
-          <input
-            type="url"
-            id="imageUrl"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            className="w-full px-4 py-3 body-text focus:outline-none transition-all duration-300"
-            style={{
-              border: '2px solid var(--border-subtle)',
-              borderRadius: '4px',
-              background: 'var(--white)'
-            }}
-            placeholder="https://example.com/image.jpg"
-          />
-          <p className="body-text mt-2" style={{ fontSize: '0.875rem', color: 'var(--medium-gray)' }}>
-            Optional fallback if you prefer an external image URL.
-          </p>
+          {existingImageUrl && !imageFile && (
+            <p className="body-text mt-2" style={{ fontSize: '0.875rem', color: 'var(--medium-gray)' }}>
+              Existing image will be kept unless you choose a new file.
+            </p>
+          )}
         </div>
 
         {/* Base Servings */}
