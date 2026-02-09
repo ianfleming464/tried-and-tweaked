@@ -28,7 +28,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
           note: ing.note ?? '',
           quantity: ing.quantity ?? ''
         }))
-      : [{ name: '', quantity: '', unit: '', note: '', order: 1 }]
+      : []
   );
 
   // Dynamic steps array
@@ -38,7 +38,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
           ...step,
           text: step.text ?? ''
         }))
-      : [{ text: '', order: 1 }]
+      : []
   );
 
   const [error, setError] = useState('');
