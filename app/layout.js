@@ -14,7 +14,7 @@ const crimsonPro = Crimson_Pro({
 });
 
 export const metadata = {
-  title: "Family Recipes - Our Cookbook",
+  title: "Tried & Tweaked - Our Family Cookbook",
   description: "A warm, editorial family recipe manager inspired by traditional cookbooks.",
 };
 
