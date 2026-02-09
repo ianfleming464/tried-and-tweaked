@@ -47,6 +47,7 @@ npm install
 cat > .env <<'EOF'
 DATABASE_URL="postgresql://<user>:<password>@<host>-pooler.<region>.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 DIRECT_URL="postgresql://<user>:<password>@<host>.<region>.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+BLOB_READ_WRITE_TOKEN="<your-vercel-blob-read-write-token>"
 EOF
 
 # Initialize database and seed with sample data
@@ -95,6 +96,7 @@ tried-and-tweaked/
 │   ├── api/recipes/              # API routes for mutations
 │   │   ├── route.js              # POST /api/recipes (create)
 │   │   └── [id]/route.js         # PUT, DELETE /api/recipes/:id
+│   ├── api/upload/route.js       # POST /api/upload (image upload to Vercel Blob)
 │   ├── recipes/                  # Recipe-related pages
 │   │   ├── [id]/page.js          # Recipe detail page (dynamic route)
 │   │   ├── [id]/edit/page.js     # Recipe edit page
@@ -201,6 +203,9 @@ git push                                     # Push to remote
 **Problem**: Can't connect to database
 - **Solution**: Check `.env` includes valid Neon `DATABASE_URL` (pooled) and `DIRECT_URL` (direct)
 
+**Problem**: Image uploads fail
+- **Solution**: Ensure `BLOB_READ_WRITE_TOKEN` is set in `.env` locally and in Vercel environment variables
+
 ### Next.js Issues
 
 **Problem**: `params is a Promise` error
@@ -230,7 +235,7 @@ git push                                     # Push to remote
 - [ ] User profile management
 
 ### Phase 3 (Enhanced Features)
-- [ ] Image upload (replace URL with actual file upload via UploadThing/Cloudinary)
+- [ ] Image transformations and optimized variants (thumbnails, compression presets)
 - [ ] Wishlist/favorites feature
 - [ ] Recipe sharing (public URLs)
 - [ ] Import recipes from URLs (web scraping)

@@ -43,6 +43,10 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
 
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
+
+  const maxImageSizeBytes = 5 * 1024 * 1024;
 
   // Toggle category selection
   const toggleCategory = (category) => {
@@ -129,6 +133,58 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
     return true;
   };
 
+  const handleImageFileChange = (event) => {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      setImageFile(null);
+      return;
+    }
+
+    if (!file.type.startsWith('image/')) {
+      setError('Please select a valid image file.');
+      event.target.value = '';
+      return;
+    }
+
+    if (file.size > maxImageSizeBytes) {
+      setError('Image must be 5MB or smaller.');
+      event.target.value = '';
+      return;
+    }
+
+    setError('');
+    setImageFile(file);
+  };
+
+  const uploadSelectedImage = async () => {
+    if (!imageFile) {
+      return imageUrl.trim() || null;
+    }
+
+    setIsUploadingImage(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', imageFile);
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        throw new Error(responseData.error || 'Failed to upload image');
+      }
+
+      return responseData.url;
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -143,11 +199,12 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
     try {
       const validIngredients = ingredients.filter(ing => ing.name.trim() && ing.quantity);
       const validSteps = steps.filter(step => step.text.trim());
+      const resolvedImageUrl = await uploadSelectedImage();
 
       const recipeData = {
         title: title.trim(),
         description: description.trim() || null,
-        imageUrl: imageUrl.trim() || null,
+        imageUrl: resolvedImageUrl,
         baseServings: parseInt(baseServings),
         source: source.trim() || null,
         categories: selectedCategories.join(','),
@@ -248,7 +305,34 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
           />
         </div>
 
-        {/* Image URL */}
+        {/* Image upload */}
+        <div>
+          <label htmlFor="imageFile" className="label-text block mb-2">
+            Upload Image
+          </label>
+          <input
+            type="file"
+            id="imageFile"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            onChange={handleImageFileChange}
+            className="w-full px-4 py-3 body-text focus:outline-none transition-all duration-300"
+            style={{
+              border: '2px solid var(--border-subtle)',
+              borderRadius: '4px',
+              background: 'var(--white)'
+            }}
+          />
+          <p className="body-text mt-2" style={{ fontSize: '0.875rem', color: 'var(--medium-gray)' }}>
+            JPG, PNG, WEBP, or GIF up to 5MB. Uploaded image takes priority over URL.
+          </p>
+          {imageFile && (
+            <p className="body-text mt-2" style={{ fontSize: '0.875rem', color: 'var(--charcoal)' }}>
+              Selected: {imageFile.name}
+            </p>
+          )}
+        </div>
+
+        {/* Image URL fallback */}
         <div>
           <label htmlFor="imageUrl" className="label-text block mb-2">
             Image URL
@@ -266,6 +350,9 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
             }}
             placeholder="https://example.com/image.jpg"
           />
+          <p className="body-text mt-2" style={{ fontSize: '0.875rem', color: 'var(--medium-gray)' }}>
+            Optional fallback if you prefer an external image URL.
+          </p>
         </div>
 
         {/* Base Servings */}
@@ -541,7 +628,9 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
           disabled={isSubmitting}
           className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isSubmitting ? 'Saving...' : mode === 'create' ? 'Create Recipe' : 'Save Changes'}
+          {isSubmitting
+            ? isUploadingImage ? 'Uploading image...' : 'Saving...'
+            : mode === 'create' ? 'Create Recipe' : 'Save Changes'}
         </button>
 
         <button

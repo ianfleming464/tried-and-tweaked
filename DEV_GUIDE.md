@@ -44,10 +44,10 @@ Core capabilities:
 ### Environment Variables
 - `DATABASE_URL` (Neon pooled URL)
 - `DIRECT_URL` (Neon direct URL, used by Prisma Migrate)
+- `BLOB_READ_WRITE_TOKEN` (Vercel Blob upload token for image hosting)
 
 ### Out of scope (Phase 1)
 - Authentication / multi-user
-- Image upload (URLs only)
 - Recipe sharing
 - Import-from-URL
 - Nutrition info
@@ -58,7 +58,7 @@ Core capabilities:
 
 Not required for Phase 1. Examples:
 - Auth / multi-user
-- Image upload (choose storage approach)
+- Image transformations and advanced media management
 - Favorites / wishlist
 - Recipe sharing/export
 - Import from URLs

@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import RecipeCard from './RecipeCard';
 import SearchBar from './SearchBar';
 import CategoryFilter from './CategoryFilter';
+import { filterAndSortRecipes } from '@/app/lib/recipeFilters';
 
 const CATEGORIES = ['Vegetarian', 'Vegan', 'Pasta', 'Curry', 'Sandwiches', 'Breakfast'];
 
@@ -13,38 +14,7 @@ export default function RecipeGrid({ recipes }) {
   const [sortBy, setSortBy] = useState('newest');
 
   const filteredAndSortedRecipes = useMemo(() => {
-    let filtered = recipes;
-
-    // Apply search filter
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(recipe =>
-        recipe.title.toLowerCase().includes(query) ||
-        (recipe.description && recipe.description.toLowerCase().includes(query))
-      );
-    }
-
-    // Apply category filter (OR logic - matches if recipe has ANY selected category)
-    if (selectedCategories.length > 0) {
-      filtered = filtered.filter(recipe => {
-        const recipeCategories = recipe.categories.split(',').map(c => c.trim());
-        return selectedCategories.some(cat => recipeCategories.includes(cat));
-      });
-    }
-
-    // Apply sorting
-    const sorted = [...filtered].sort((a, b) => {
-      if (sortBy === 'newest') {
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      } else if (sortBy === 'oldest') {
-        return new Date(a.createdAt) - new Date(b.createdAt);
-      } else if (sortBy === 'alphabetical') {
-        return a.title.localeCompare(b.title);
-      }
-      return 0;
-    });
-
-    return sorted;
+    return filterAndSortRecipes(recipes, searchQuery, selectedCategories, sortBy);
   }, [recipes, searchQuery, selectedCategories, sortBy]);
 
   const toggleCategory = (category) => {
