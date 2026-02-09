@@ -2,7 +2,7 @@ import prisma from '@/app/lib/prisma';
 import RecipeGrid from './components/RecipeGrid';
 import Link from 'next/link';
 
-// Force dynamic rendering (don't prerender at build time)
+// Force dynamic rendering to prevent build-time database queries
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
