@@ -1,7 +1,5 @@
-import { PrismaClient } from '@/app/generated/prisma';
+import prisma from '@/app/lib/prisma';
 import { NextResponse } from 'next/server';
-
-const prisma = new PrismaClient();
 
 // POST /api/recipes - Create a new recipe
 export async function POST(request) {

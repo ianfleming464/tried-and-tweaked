@@ -1,9 +1,7 @@
-import { PrismaClient } from '@/app/generated/prisma';
+import prisma from '@/app/lib/prisma';
 import { notFound } from 'next/navigation';
 import RecipeDetail from '@/app/components/RecipeDetail';
 import Link from 'next/link';
-
-const prisma = new PrismaClient();
 
 export default async function RecipePage({ params }) {
   // In Next.js 16+, params is a Promise and must be awaited

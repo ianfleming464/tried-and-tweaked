@@ -1,7 +1,5 @@
-import { PrismaClient } from '@/app/generated/prisma';
+import prisma from '@/app/lib/prisma';
 import { NextResponse } from 'next/server';
-
-const prisma = new PrismaClient();
 
 // PUT /api/recipes/[id] - Update an existing recipe
 export async function PUT(request, { params }) {

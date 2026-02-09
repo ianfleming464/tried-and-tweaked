@@ -1,6 +1,6 @@
 # Family Recipe Manager 🍳
 
-A mobile-first web application for storing, managing, and scaling family recipes. Keep track of your personalized recipe modifications with precise ingredient quantities and cooking instructions. The unique feature: view ingredients and instructions simultaneously with dynamic portion scaling.
+A mobile-first web application for storing, managing, and scaling family recipes. Keep track of your personalised recipe modifications with precise ingredient quantities and cooking instructions. The unique feature: view ingredients and instructions simultaneously with dynamic portion scaling.
 
 ## ✨ Features
 
