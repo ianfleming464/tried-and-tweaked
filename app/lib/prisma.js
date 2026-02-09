@@ -21,7 +21,13 @@ function createPrismaClient() {
   const tursoUrl = tursoDatabaseUrl || (databaseUrl?.startsWith('libsql://') ? databaseUrl : undefined);
 
   if (databaseUrl?.startsWith('file:')) {
-    return new PrismaClient();
+    return new PrismaClient({
+      datasources: {
+        db: {
+          url: databaseUrl,
+        },
+      },
+    });
   }
 
   if (!tursoUrl) {
@@ -36,7 +42,14 @@ function createPrismaClient() {
   });
 
   const adapter = new PrismaLibSQL(libsql);
-  return new PrismaClient({ adapter });
+  return new PrismaClient({
+    adapter,
+    datasources: {
+      db: {
+        url: tursoUrl,
+      },
+    },
+  });
 }
 
 function getPrismaClient() {
