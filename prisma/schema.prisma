@@ -7,8 +7,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Recipe {
@@ -18,7 +19,7 @@ model Recipe {
   imageUrl     String?
   baseServings Int          @default(4)
   source       String?
-  categories   String       // Stored as comma-separated string for SQLite
+  categories   String       // Stored as comma-separated string
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
   ingredients  Ingredient[]
