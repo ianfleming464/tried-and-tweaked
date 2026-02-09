@@ -8,7 +8,19 @@
       "Bash(claude mcp add:*)",
       "Bash(claude mcp get:*)",
       "Bash(claude mcp list:*)",
-      "Skill(frontend-design)"
+      "Skill(frontend-design)",
+      "Bash(cat:*)",
+      "Bash(DATABASE_URL=\"$TURSO_DATABASE_URL\" npx prisma migrate:*)",
+      "Bash(DATABASE_URL=\"$TURSO_DATABASE_URL\" TURSO_DATABASE_URL=\"$TURSO_DATABASE_URL\" TURSO_AUTH_TOKEN=\"$TURSO_AUTH_TOKEN\" npx prisma migrate:*)",
+      "Bash(set -a)",
+      "Bash(source .env)",
+      "Bash(set +a)",
+      "Bash(npx prisma migrate:*)",
+      "Bash(npx prisma:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nPrepare for Vercel + Turso deployment\n\nAdd environment variable documentation for local SQLite and production Turso setup. Update project documentation structure with DEV_GUIDE.md and PROJECT_DEEP_DIVE.md for better organization.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []

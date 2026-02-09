@@ -1,4 +1,22 @@
-# Developer Guide: Family Recipe Manager
+# PROJECT_DEEP_DIVE.md — Family Recipe Manager
+
+This document contains **long-form context** that is useful for human onboarding and deep understanding, but **not required for agentic progress**.
+
+If you are an agent (or you’re using Claude Code with limited context), prefer:
+- **DEVELOPER_GUIDE.md** — roadmap + phases + guardrails (lean)
+- **CLAUDE.md** — commands + rules + business logic (operational)
+
+Use this file when you need:
+- architecture rationale
+- file-by-file walkthroughs
+- request/data lifecycle explanations
+- detailed debugging narratives
+- “why” explanations and learning-oriented notes
+
+---
+
+# Developer Guide: Family Recipe Manager (moved)
+
 
 This guide provides a deep dive into the codebase architecture, explaining not just WHAT each file does, but WHY it's structured this way. Perfect for learning Next.js, React patterns, and full-stack development.
 
@@ -1716,13 +1734,3 @@ const recipe = await prisma.recipe.findUnique({
 10. **Progressive Enhancement**: Offline support
 
 ---
-
-**You now have a deep understanding of this codebase!**
-
-Start experimenting:
-- Modify existing components
-- Add new fields to recipes
-- Create new features
-- Break things and fix them (best way to learn!)
-
-Happy coding! 🚀
