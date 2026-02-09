@@ -87,6 +87,8 @@ Full details are in **CLAUDE.md**.
 ### Local Development
 - Dev server: `npm run dev`
 - Lint: `npm run lint`
+- Unit tests: `npm test`
+- Mobile smoke E2E: `npm run test:e2e`
 - Prisma generate: `npx prisma generate`
 - Reset DB + seed: `npx prisma migrate reset`
 

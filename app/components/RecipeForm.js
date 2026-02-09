@@ -5,6 +5,17 @@ import { useRouter } from 'next/navigation';
 
 const CATEGORIES = ['Vegetarian', 'Vegan', 'Pasta', 'Curry', 'Sandwiches', 'Breakfast'];
 
+function toLegacyAmountText(ingredient) {
+  if (ingredient.amountText?.trim()) return ingredient.amountText.trim();
+
+  const quantity = Number(ingredient.quantity);
+  const hasNumericQuantity = Number.isFinite(quantity) && quantity > 0;
+  if (!hasNumericQuantity) return '';
+
+  const unit = ingredient.unit?.trim() || '';
+  return `${quantity}${unit ? ` ${unit}` : ''}`;
+}
+
 export default function RecipeForm({ mode = 'create', initialData = null }) {
   const router = useRouter();
 
@@ -22,11 +33,9 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
   const [ingredients, setIngredients] = useState(
     initialData?.ingredients
       ? initialData.ingredients.map(ing => ({
-          ...ing,
           name: ing.name ?? '',
-          unit: ing.unit ?? '',
-          note: ing.note ?? '',
-          quantity: ing.quantity ?? ''
+          amount: toLegacyAmountText(ing),
+          order: ing.order,
         }))
       : []
   );
@@ -62,7 +71,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
   const addIngredient = () => {
     setIngredients([
       ...ingredients,
-      { name: '', quantity: '', unit: '', note: '', order: ingredients.length + 1 }
+      { name: '', amount: '', order: ingredients.length + 1 }
     ]);
   };
 
@@ -119,7 +128,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
       return false;
     }
 
-    const validIngredients = ingredients.filter(ing => ing.name.trim() && ing.quantity);
+    const validIngredients = ingredients.filter(ing => ing.name.trim());
     if (validIngredients.length === 0) {
       setError('Please add at least one ingredient');
       return false;
@@ -199,7 +208,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
     setIsSubmitting(true);
 
     try {
-      const validIngredients = ingredients.filter(ing => ing.name.trim() && ing.quantity);
+      const validIngredients = ingredients.filter(ing => ing.name.trim());
       const validSteps = steps.filter(step => step.text.trim());
       const resolvedImageUrl = await uploadSelectedImage();
 
@@ -212,9 +221,7 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
         categories: selectedCategories.join(','),
         ingredients: validIngredients.map(ing => ({
           name: ing.name.trim(),
-          quantity: parseFloat(ing.quantity),
-          unit: ing.unit.trim(),
-          note: ing.note?.trim() || null,
+          amountText: ing.amount?.trim() || null,
           order: ing.order
         })),
         steps: validSteps.map(step => ({
@@ -435,56 +442,27 @@ export default function RecipeForm({ mode = 'create', initialData = null }) {
         {ingredients.map((ingredient, index) => (
           <div key={index} style={{ display: 'flex', gap: '0.5rem', alignItems: 'start' }}>
             <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr', gap: '0.5rem' }} className="sm:grid-cols-12">
+              {/* Amount */}
+              <input
+                type="text"
+                value={ingredient.amount}
+                onChange={(e) => updateIngredient(index, 'amount', e.target.value)}
+                placeholder="Amount (e.g. 450g, 1 sachet, pinch)"
+                className="sm:col-span-4 px-3 py-2 body-text focus:outline-none transition-all duration-300"
+                style={{
+                  border: '2px solid var(--border-subtle)',
+                  borderRadius: '4px',
+                  background: 'var(--white)'
+                }}
+              />
+
               {/* Ingredient name */}
               <input
                 type="text"
                 value={ingredient.name}
                 onChange={(e) => updateIngredient(index, 'name', e.target.value)}
                 placeholder="Ingredient name"
-                className="sm:col-span-4 px-3 py-2 body-text focus:outline-none transition-all duration-300"
-                style={{
-                  border: '2px solid var(--border-subtle)',
-                  borderRadius: '4px',
-                  background: 'var(--white)'
-                }}
-              />
-
-              {/* Quantity */}
-              <input
-                type="number"
-                step="0.01"
-                value={ingredient.quantity}
-                onChange={(e) => updateIngredient(index, 'quantity', e.target.value)}
-                placeholder="Qty"
-                className="sm:col-span-2 px-3 py-2 body-text focus:outline-none transition-all duration-300"
-                style={{
-                  border: '2px solid var(--border-subtle)',
-                  borderRadius: '4px',
-                  background: 'var(--white)'
-                }}
-              />
-
-              {/* Unit */}
-              <input
-                type="text"
-                value={ingredient.unit}
-                onChange={(e) => updateIngredient(index, 'unit', e.target.value)}
-                placeholder="Unit"
-                className="sm:col-span-2 px-3 py-2 body-text focus:outline-none transition-all duration-300"
-                style={{
-                  border: '2px solid var(--border-subtle)',
-                  borderRadius: '4px',
-                  background: 'var(--white)'
-                }}
-              />
-
-              {/* Note */}
-              <input
-                type="text"
-                value={ingredient.note}
-                onChange={(e) => updateIngredient(index, 'note', e.target.value)}
-                placeholder="Note (optional)"
-                className="sm:col-span-4 px-3 py-2 body-text focus:outline-none transition-all duration-300"
+                className="sm:col-span-8 px-3 py-2 body-text focus:outline-none transition-all duration-300"
                 style={{
                   border: '2px solid var(--border-subtle)',
                   borderRadius: '4px',

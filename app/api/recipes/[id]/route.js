@@ -1,4 +1,5 @@
 import prisma from '@/app/lib/prisma';
+import { toIngredientRecord } from '@/app/lib/ingredientAmount';
 import { NextResponse } from 'next/server';
 
 // PUT /api/recipes/[id] - Update an existing recipe
@@ -32,6 +33,17 @@ export async function PUT(request, { params }) {
     }
 
     if (!data.ingredients || data.ingredients.length === 0) {
+      return NextResponse.json(
+        { error: 'At least one ingredient is required' },
+        { status: 400 }
+      );
+    }
+
+    const validIngredients = data.ingredients
+      .map(toIngredientRecord)
+      .filter((ingredient) => ingredient.name);
+
+    if (validIngredients.length === 0) {
       return NextResponse.json(
         { error: 'At least one ingredient is required' },
         { status: 400 }
@@ -82,12 +94,9 @@ export async function PUT(request, { params }) {
           categories: data.categories,
           // Create new ingredients
           ingredients: {
-            create: data.ingredients.map(ing => ({
-              name: ing.name,
-              quantity: ing.quantity,
-              unit: ing.unit,
-              note: ing.note,
-              order: ing.order
+            create: validIngredients.map((ingredient, index) => ({
+              ...ingredient,
+              order: index + 1,
             }))
           },
           // Create new steps

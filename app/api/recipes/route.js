@@ -1,4 +1,5 @@
 import prisma from '@/app/lib/prisma';
+import { toIngredientRecord } from '@/app/lib/ingredientAmount';
 import { NextResponse } from 'next/server';
 
 // POST /api/recipes - Create a new recipe
@@ -36,6 +37,17 @@ export async function POST(request) {
       );
     }
 
+    const validIngredients = data.ingredients
+      .map(toIngredientRecord)
+      .filter((ingredient) => ingredient.name);
+
+    if (validIngredients.length === 0) {
+      return NextResponse.json(
+        { error: 'At least one ingredient is required' },
+        { status: 400 }
+      );
+    }
+
     if (!data.steps || data.steps.length === 0) {
       return NextResponse.json(
         { error: 'At least one step is required' },
@@ -54,12 +66,9 @@ export async function POST(request) {
         categories: data.categories,
         // Nested create for ingredients
         ingredients: {
-          create: data.ingredients.map(ing => ({
-            name: ing.name,
-            quantity: ing.quantity,
-            unit: ing.unit,
-            note: ing.note,
-            order: ing.order
+          create: validIngredients.map((ingredient, index) => ({
+            ...ingredient,
+            order: index + 1,
           }))
         },
         // Nested create for steps

@@ -1,3 +1,5 @@
+import { parseAmountText } from '@/app/lib/ingredientAmount';
+
 // Helper function to scale ingredient quantities
 function scaleQuantity(baseQuantity, baseServings, selectedServings) {
   // Calculate the scale factor
@@ -19,18 +21,38 @@ function shouldNotScale(ingredient) {
   const toTastePattern = /to taste/i;
   return (
     toTastePattern.test(ingredient.name) ||
-    toTastePattern.test(ingredient.unit) ||
+    (ingredient.unit && toTastePattern.test(ingredient.unit)) ||
+    (ingredient.amountText && toTastePattern.test(ingredient.amountText)) ||
     (ingredient.note && toTastePattern.test(ingredient.note))
   );
 }
 
 // Format ingredient display
 function formatIngredient(ingredient, baseServings, selectedServings) {
-  // Handle zero or null quantity (e.g., "as needed" items)
-  if (!ingredient.quantity || ingredient.quantity === 0) {
+  const parsedFromText = parseAmountText(ingredient.amountText);
+  const quantity =
+    typeof ingredient.quantity === 'number'
+      ? ingredient.quantity
+      : parsedFromText.quantity;
+  const unit =
+    (ingredient.unit && ingredient.unit.trim()) ||
+    parsedFromText.unit ||
+    '';
+
+  // Handle non-numeric amounts (e.g. "pinch", "to taste")
+  if (!quantity || quantity === 0) {
+    if (ingredient.amountText?.trim()) {
+      return {
+        amountText: ingredient.amountText.trim(),
+        isAsNeeded: false,
+        name: ingredient.name,
+        note: ingredient.note
+      };
+    }
+
     return {
-      quantity: 'As needed',
-      unit: '',
+      amountText: 'As needed',
+      isAsNeeded: true,
       name: ingredient.name,
       note: ingredient.note
     };
@@ -41,12 +63,13 @@ function formatIngredient(ingredient, baseServings, selectedServings) {
 
   // Calculate scaled quantity (or use original if not scaling)
   const displayQuantity = noScale
-    ? ingredient.quantity
-    : scaleQuantity(ingredient.quantity, baseServings, selectedServings);
+    ? quantity
+    : scaleQuantity(quantity, baseServings, selectedServings);
 
+  const amountText = `${displayQuantity}${unit ? ` ${unit}` : ''}`;
   return {
-    quantity: displayQuantity,
-    unit: ingredient.unit,
+    amountText,
+    isAsNeeded: false,
     name: ingredient.name,
     note: ingredient.note
   };
@@ -73,13 +96,13 @@ export default function IngredientList({ ingredients, baseServings, selectedServ
               {/* Ingredient details */}
               <div className="flex-1">
                 <span>
-                  {/* Quantity and unit */}
-                  {formatted.quantity !== 'As needed' && (
+                  {/* Amount */}
+                  {!formatted.isAsNeeded && (
                     <span className="font-medium" style={{ color: 'var(--charcoal)' }}>
-                      {formatted.quantity} {formatted.unit}{' '}
+                      {formatted.amountText}{' '}
                     </span>
                   )}
-                  {formatted.quantity === 'As needed' && (
+                  {formatted.isAsNeeded && (
                     <span className="font-medium italic" style={{ color: 'var(--accent-rust)' }}>As needed — </span>
                   )}
 

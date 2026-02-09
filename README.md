@@ -135,6 +135,8 @@ npm run dev          # Start development server (http://localhost:3000)
 npm run build        # Build for production
 npm start            # Start production server
 npm run lint         # Run ESLint
+npm test             # Run unit/route tests (Vitest)
+npm run test:e2e     # Run mobile smoke E2E test (Playwright)
 ```
 
 ### Database (Prisma)
@@ -177,8 +179,9 @@ git push                                     # Push to remote
 ### Ingredient
 - `id` - Auto-incrementing integer primary key
 - `name` - Ingredient name (e.g., "All-purpose flour")
-- `quantity` - Numeric amount (e.g., 2.5)
-- `unit` - Unit of measurement (e.g., "cups", "g", "tbsp")
+- `amountText` - Primary user input amount text (e.g., "450g", "1 sachet", "pinch")
+- `quantity` - Optional parsed numeric amount used for scaling when available
+- `unit` - Optional parsed unit used for scaling display
 - `note` - Optional note (e.g., "room temperature", "divided")
 - `order` - Integer for sorting ingredients in display order
 - `recipeId` - Foreign key to Recipe (cascade delete)

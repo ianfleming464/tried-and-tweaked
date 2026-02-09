@@ -51,4 +51,8 @@ prisma/dev.db-journal
 
 # local planning docs
 NEON_MIGRATION_PLAN.md
+
+# playwright
+playwright-report/
+test-results/
 .env*.local

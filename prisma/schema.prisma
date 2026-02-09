@@ -29,8 +29,9 @@ model Recipe {
 model Ingredient {
   id       Int     @id @default(autoincrement())
   name     String
-  quantity Float
-  unit     String
+  amountText String?
+  quantity Float?
+  unit     String?
   note     String?
   order    Int
   recipeId Int

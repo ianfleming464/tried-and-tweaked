@@ -33,9 +33,7 @@ function validPayload() {
     ingredients: [
       {
         name: 'Flour',
-        quantity: 2,
-        unit: 'cups',
-        note: '',
+        amountText: '2 cups',
         order: 0,
       },
     ],
@@ -87,6 +85,16 @@ describe('POST /api/recipes', () => {
         data: expect.objectContaining({
           title: payload.title,
           categories: payload.categories,
+          ingredients: expect.objectContaining({
+            create: expect.arrayContaining([
+              expect.objectContaining({
+                name: 'Flour',
+                amountText: '2 cups',
+                quantity: 2,
+                unit: 'cups',
+              }),
+            ]),
+          }),
         }),
         include: { ingredients: true, steps: true },
       })

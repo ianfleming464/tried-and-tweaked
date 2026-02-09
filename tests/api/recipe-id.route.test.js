@@ -50,9 +50,7 @@ function validPayload() {
     ingredients: [
       {
         name: 'Olive oil',
-        quantity: 1,
-        unit: 'tbsp',
-        note: '',
+        amountText: '1 tbsp',
         order: 0,
       },
     ],
@@ -101,6 +99,22 @@ describe('PUT /api/recipes/[id]', () => {
     expect(tx.ingredient.deleteMany).toHaveBeenCalledWith({ where: { recipeId: 1 } });
     expect(tx.step.deleteMany).toHaveBeenCalledWith({ where: { recipeId: 1 } });
     expect(tx.recipe.update).toHaveBeenCalledTimes(1);
+    expect(tx.recipe.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          ingredients: expect.objectContaining({
+            create: expect.arrayContaining([
+              expect.objectContaining({
+                name: 'Olive oil',
+                amountText: '1 tbsp',
+                quantity: 1,
+                unit: 'tbsp',
+              }),
+            ]),
+          }),
+        }),
+      })
+    );
   });
 });
 
