@@ -4,11 +4,21 @@ import { createClient } from '@libsql/client';
 
 const globalForPrisma = globalThis;
 
+function readEnv(name) {
+  const value = process.env[name];
+  if (!value) return undefined;
+
+  const normalized = value.trim();
+  if (!normalized) return undefined;
+  if (normalized === 'undefined' || normalized === 'null') return undefined;
+
+  return normalized;
+}
+
 function createPrismaClient() {
-  const databaseUrl = process.env.DATABASE_URL;
-  const tursoUrl =
-    process.env.TURSO_DATABASE_URL ||
-    (databaseUrl?.startsWith('libsql://') ? databaseUrl : undefined);
+  const databaseUrl = readEnv('DATABASE_URL');
+  const tursoDatabaseUrl = readEnv('TURSO_DATABASE_URL');
+  const tursoUrl = tursoDatabaseUrl || (databaseUrl?.startsWith('libsql://') ? databaseUrl : undefined);
 
   if (databaseUrl?.startsWith('file:')) {
     return new PrismaClient();
@@ -16,7 +26,7 @@ function createPrismaClient() {
 
   if (!tursoUrl) {
     throw new Error(
-      'Database configuration error: set TURSO_DATABASE_URL or a libsql:// DATABASE_URL in your server environment.',
+      'Database configuration error: set TURSO_DATABASE_URL (libsql://...) or DATABASE_URL (file:... locally / libsql://... in production).',
     );
   }
 
